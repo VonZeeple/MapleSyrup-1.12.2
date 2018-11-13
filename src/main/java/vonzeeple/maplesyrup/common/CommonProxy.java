@@ -58,7 +58,7 @@ public class CommonProxy {
 
         TappableBlockHandler.registerTappableBlock(Content.blockMapleLog.getDefaultState().withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.Y), new FluidStack(Content.fluidMapleSap,200));
         TappableBlockHandler.registerTappableBlock(Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH), new FluidStack(Content.fluidMapleSap,200));
-        EvaporationProcessesHandler.registerProcess(Content.fluidMapleSap, Content.fluidMapleSyrup, 10);
+        EvaporationProcessesHandler.registerProcess(Content.fluidMapleSap, Content.fluidMapleSyrup, 10,37,"Sugar");
 
         addPattern(MapleSyrup.MODID.toLowerCase()+"_banner","vz_map",new ItemStack(Content.itemMapleSyrupBottle,1));
 

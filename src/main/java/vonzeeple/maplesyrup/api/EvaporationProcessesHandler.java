@@ -5,21 +5,42 @@ import java.util.HashMap;
 
 public class EvaporationProcessesHandler {
 
-    static final HashMap<String, EvaporationProduct> EvaporationProcesses = new HashMap<String, EvaporationProduct>();
+    protected static final HashMap<String, EvaporationProcess> EvaporationProcesses = new HashMap<>();
 
 
-    public static void registerProcess(Fluid dilutedFluid, Fluid concentratedFluid, float ratio)
+    public static void registerProcess(Fluid dilutedFluid, Fluid concentratedFluid, float ratio, int endConcentration, String materialName)
     {
         if(dilutedFluid != null && concentratedFluid != null && ratio > 0.0f){
-            EvaporationProduct product=new EvaporationProduct(concentratedFluid.getName(), ratio);
+            EvaporationProcess product=new EvaporationProcess(concentratedFluid.getName(), ratio, endConcentration, materialName);
             EvaporationProcesses.put(dilutedFluid.getName(), product );
         }
+    }
+
+    public static void modifyProcess(){}
+
+    public static EvaporationProcess getProcess(Fluid fluid){
+        if(canBeEvaporated(fluid) && fluid !=null){
+            return EvaporationProcesses.get(fluid.getName());
+        }
+        return null;
     }
     public static boolean canBeEvaporated(Fluid fluid){
         if(fluid != null)
             return EvaporationProcesses.containsKey(fluid.getName());
 
         return false;
+    }
+    public static int getFinalConcentration(Fluid fluid){
+        if(canBeEvaporated(fluid) && fluid !=null){
+            return EvaporationProcesses.get(fluid.getName()).endConcentration;
+        }
+        return 0;
+    }
+    public static String getMaterial(Fluid fluid){
+        if(canBeEvaporated(fluid) && fluid !=null){
+            return EvaporationProcesses.get(fluid.getName()).materialName;
+        }
+        return "None";
     }
     public static String getConcentratedFluid(Fluid fluid){
 
@@ -28,6 +49,7 @@ public class EvaporationProcessesHandler {
         }
         return null;
     }
+
     public static float getRatio(Fluid fluid){
 
         if(canBeEvaporated(fluid) && fluid !=null){
@@ -36,16 +58,4 @@ public class EvaporationProcessesHandler {
         return 0.0f;
     }
 
-    private static class EvaporationProduct{
-
-        String concentratedFluid;
-        float ratio;
-
-        public EvaporationProduct(String fluid, float ratio){
-            this.concentratedFluid=fluid;
-            this.ratio=ratio;
-        }
-        public float getRatio(){return this.ratio;}
-        public String getConcentratedFluid(){return this.concentratedFluid;}
-    }
 }

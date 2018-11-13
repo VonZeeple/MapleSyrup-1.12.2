@@ -4,6 +4,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import vonzeeple.maplesyrup.api.EvaporationProcess;
 import vonzeeple.maplesyrup.api.EvaporationProcessesHandler;
 
 public class FluidTankEvaporator extends FluidTank {
@@ -44,6 +45,14 @@ public class FluidTankEvaporator extends FluidTank {
     }
 
 
+    public String getConcentration(){
+        if(fluid.getFluid()==null){return "None";}
+        if(!EvaporationProcessesHandler.canBeEvaporated(fluid.getFluid())){return "None";}
+        EvaporationProcess process=EvaporationProcessesHandler.getProcess(this.getFluid().getFluid());
+        int concentration=(int)(this.materialContent*process.getEndConcentration()/getFluidAmount()/process.getRatio());
+        return process.getMaterialName()+": "+concentration+"%";
+
+    }
     @Override
     public int fill(FluidStack resource, boolean doFill)
     {

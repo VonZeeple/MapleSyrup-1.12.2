@@ -126,7 +126,9 @@ public class TileEntityEvaporator extends TileEntity implements ITickable {
         return (oldState.getBlock() != newState.getBlock());
     }
 
-
+    public String getConcentration(){
+        return tank.getConcentration();
+    }
     public boolean isEvaporating(){
         return (this.tank.canEvaporate() && this.burningTimeLeft > 0);
     }
