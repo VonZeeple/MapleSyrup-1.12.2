@@ -1,0 +1,27 @@
+{
+    "forge_marker": 1,
+"defaults": {
+		"model": "forge:fluid",
+		"transform": "forge:default-item"
+},
+    "variants": {
+        "maple_syrup_fluid": [{
+            "custom": { "fluid": "maple_syrup_fluid" }
+        }],
+        "maple_sap_fluid": [{
+            "custom": { "fluid": "maple_sap_fluid" }
+        }],
+        "birch_syrup_fluid": [{
+            "custom": { "fluid": "maple_syrup_fluid" }
+        }],
+        "birch_sap_fluid": [{
+            "custom": { "fluid": "maple_sap_fluid" }
+        }],
+		"hevea_sap_fluid": [{
+            "custom": { "fluid": "hevea_sap_fluid" }
+        }],
+        "pancake_mix_fluid": [{
+            "custom": { "fluid": "pancakemix_fluid" }
+        }]
+    }
+}

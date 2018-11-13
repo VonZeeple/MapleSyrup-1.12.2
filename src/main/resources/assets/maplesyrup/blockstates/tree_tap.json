@@ -1,0 +1,27 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "maplesyrup:treetap.obj",
+       "custom": {"flip-v": true}
+    },
+    "variants": {
+   			"normal": [{}],
+    		"facing":{
+  				"south":{"transform":{"rotation": {"y":0}}},
+        		"north":{"transform":{"rotation": {"y":180}}},
+        		"east":{"transform":{"rotation":  {"y":90}}},
+       			"west":{"transform":{"rotation":  {"y":270}}}
+        	},
+		    "isfull": {
+              "false": {},
+              "true": {}
+            },
+		    "bucket": {
+              "true": {"submodel": "maplesyrup:treetap_bucket.obj"},
+              "false": {}
+            },
+        	"inventory": [{
+				"transform": "forge:default-block"
+        	}]
+        }
+}

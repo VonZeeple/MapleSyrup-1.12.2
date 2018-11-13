@@ -1,0 +1,15 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+	  "model": "maplesyrup:evaporator"
+      },
+    "variants": {
+   			"normal": [{
+    		}],
+			"active=true":{"model": "maplesyrup:evaporator"},
+            "active=false":{"model": "maplesyrup:evaporator"},
+        	"inventory": [{
+              "transform": "forge:default-block"
+			}]
+        }
+}

@@ -1,0 +1,8 @@
+{
+  "result":{"item": "maplesyrup:pancakes", "data": 1},
+  "type": "forge:ore_shapeless",
+  "ingredients":[
+    {"item": "maplesyrup:pancakes", "data": 0},
+    {"type": "forge:ore_dict", "ore": "cropMaplesyrup"}
+  ]
+}

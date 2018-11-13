@@ -1,0 +1,9 @@
+{
+    "variants": {
+        "axis=y":  { "model": "maplesyrup:maple_log" },
+        "axis=z":   { "model": "maplesyrup:maple_log", "x": 90 },
+        "axis=x":   { "model": "maplesyrup:maple_log", "x": 90, "y": 90 },
+        "axis=none": { "model": "acacia_bark" },
+        "inventory":{ "model": "maplesyrup:maple_log" }
+    }
+}

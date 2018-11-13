@@ -1,0 +1,8 @@
+{
+  "result":{"item": "maplesyrup:pancakes", "data": 2},
+  "type": "forge:ore_shapeless",
+  "ingredients":[
+    {"item": "minecraft:cooked_porkchop", "data": 0},
+    {"type": "forge:ore_dict", "ore": "cropMaplesyrup"}
+  ]
+}

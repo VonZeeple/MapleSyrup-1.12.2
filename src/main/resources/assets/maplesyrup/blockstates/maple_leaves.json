@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "normal": { "model": "maplesyrup:maple_leaves" },
+        "inventory":{ "model": "maplesyrup:maple_leaves" }
+    }
+}

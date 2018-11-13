@@ -1,0 +1,10 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "maplesyrup:maple_sapling"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}

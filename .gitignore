@@ -1,0 +1,11 @@
+
+/.gradle
+/.idea
+/build
+/out
+/gradle
+build.gradle
+gradlew.bat
+mapleSyrup-1.12.2.iml
+mapleSyrup-1.12.2.ipr
+mapleSyrup-1.12.2.iws
