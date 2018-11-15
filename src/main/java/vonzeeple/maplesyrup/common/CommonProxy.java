@@ -68,7 +68,7 @@ public class CommonProxy {
         addPattern(MapleSyrup.MODID.toLowerCase()+"_banner","vz_map",new ItemStack(Content.itemMapleSyrupBottle,1));
 
     }
-    public static void addPattern(String name, String id, ItemStack craftingItem)
+    private static void addPattern(String name, String id, ItemStack craftingItem)
     {
         EnumHelper.addEnum(BannerPattern.class, name.toUpperCase(), new Class[] { String.class, String.class, ItemStack.class }, new Object[] { name, id, craftingItem });
     }
@@ -87,31 +87,24 @@ public class CommonProxy {
         GameRegistry.registerTileEntity(TileEntityTreeTap.class, new ResourceLocation("maplesyrup:tileTreeTap"));
         event.getRegistry().register(new BlockFluid(Content.fluidMapleSap,"maple_sap_fluid"));
         event.getRegistry().register(new BlockFluid(Content.fluidMapleSyrup,"maple_syrup_fluid"));
-
-
         }
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
-
         event.getRegistry().register(new ItemPancakes());
         event.getRegistry().register(new ItemPancakeMix());
         event.getRegistry().register(new ItemMapleSyrupBottle());
         event.getRegistry().register(new ItemHydrometer());
         event.getRegistry().register(new ItemSugarBucket());
-
         event.getRegistry().register(new ItemBlock(Content.blockEvaporator).setRegistryName(Content.blockEvaporator.getRegistryName()));
         event.getRegistry().register(new ItemBlock(Content.blockMapleLog).setRegistryName(Content.blockMapleLog.getRegistryName()));
         event.getRegistry().register(new ItemBlock(Content.blockTreeTap).setRegistryName(Content.blockTreeTap.getRegistryName()));
         event.getRegistry().register(new ItemBlock(Content.blockMapleLeaves).setRegistryName(Content.blockMapleLeaves.getRegistryName()));
-
         ItemBlock itemBlockMapleSapling = new ItemBlock(Content.blockMapleSapling) {
             @Override
             public int getItemBurnTime(ItemStack itemStack) { return 100; }
         };
         event.getRegistry().register(itemBlockMapleSapling.setRegistryName(Content.blockMapleSapling.getRegistryName()));
-
-
     }
 
     public static void registerOres(){
@@ -119,7 +112,6 @@ public class CommonProxy {
         OreDictionary.registerOre("listAllsugar",Items.SUGAR);// From Harvestcraft
         OreDictionary.registerOre("listAllegg",Items.EGG);
         OreDictionary.registerOre("listAllmilk",Items.MILK_BUCKET);
-
         //For compat with harvestcraft
         OreDictionary.registerOre("cropMaplesyrup",Content.itemMapleSyrupBottle);
     }
