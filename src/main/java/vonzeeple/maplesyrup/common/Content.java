@@ -5,10 +5,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import vonzeeple.maplesyrup.MapleSyrup;
 import vonzeeple.maplesyrup.common.blocks.*;
-import vonzeeple.maplesyrup.common.items.ItemHydrometer;
-import vonzeeple.maplesyrup.common.items.ItemMapleSyrupBottle;
-import vonzeeple.maplesyrup.common.items.ItemPancakeMix;
-import vonzeeple.maplesyrup.common.items.ItemPancakes;
+import vonzeeple.maplesyrup.common.items.*;
 
 
 //Inject values from registry
@@ -36,6 +33,9 @@ public class Content {
     public static final BlockFluid blockFluidMapleSyrup = null;
     //public static final BlockFluidMapleSyrup blockFluidMapleSyrup = null;
 
+    @ObjectHolder("maplesyrup:sugarbucket")//format modid:name
+    public static final ItemSugarBucket itemSugarBucket = null;
+    //public static final BlockFluidMapleSyrup blockFluidMapleSyrup = null;
 
     @ObjectHolder("maplesyrup:pancakes")//format modid:name
     public static final ItemPancakes itemPancakes = null;

@@ -13,8 +13,10 @@ import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -26,10 +28,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import vonzeeple.maplesyrup.MapleSyrup;
 import vonzeeple.maplesyrup.common.blocks.*;
 import vonzeeple.maplesyrup.client.gui.GuiProxy;
-import vonzeeple.maplesyrup.common.items.ItemHydrometer;
-import vonzeeple.maplesyrup.common.items.ItemMapleSyrupBottle;
-import vonzeeple.maplesyrup.common.items.ItemPancakeMix;
-import vonzeeple.maplesyrup.common.items.ItemPancakes;
+import vonzeeple.maplesyrup.common.items.*;
 import vonzeeple.maplesyrup.common.tileEntities.TileEntityEvaporator;
 import vonzeeple.maplesyrup.common.tileEntities.TileEntityTreeTap;
 import vonzeeple.maplesyrup.api.EvaporationProcessesHandler;
@@ -54,6 +53,8 @@ public class CommonProxy {
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiProxy());
 
         GameRegistry.addSmelting(new ItemStack(Content.itemPancakeMix),new ItemStack(Content.itemPancakes) ,0f);
+        GameRegistry.addSmelting(FluidUtil.getFilledBucket(new FluidStack(Content.fluidMapleSyrup, Fluid.BUCKET_VOLUME)),new ItemStack(Content.itemSugarBucket) ,0f);
+
         registerOres();
 
         TappableBlockHandler.registerTappableBlock(Content.blockMapleLog.getDefaultState().withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.Y), new FluidStack(Content.fluidMapleSap,200));
@@ -93,6 +94,7 @@ public class CommonProxy {
         event.getRegistry().register(new ItemPancakeMix());
         event.getRegistry().register(new ItemMapleSyrupBottle());
         event.getRegistry().register(new ItemHydrometer());
+        event.getRegistry().register(new ItemSugarBucket());
 
         event.getRegistry().register(new ItemBlock(Content.blockEvaporator).setRegistryName(Content.blockEvaporator.getRegistryName()));
         event.getRegistry().register(new ItemBlock(Content.blockMapleLog).setRegistryName(Content.blockMapleLog.getRegistryName()));

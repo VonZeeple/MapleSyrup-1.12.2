@@ -1,0 +1,7 @@
+{
+  "result":{"item": "minecraft:sugar"},
+  "type": "forge:ore_shapeless",
+  "ingredients":[
+    {"item": "maplesyrup:sugarbucket"}
+  ]
+}
