@@ -55,5 +55,8 @@ public class Content {
     public static final Fluid fluidMapleSap = new Fluid("maple_sap_fluid",new ResourceLocation(MapleSyrup.MODID+":blocks/maplesap_still"),new ResourceLocation(MapleSyrup.MODID+":blocks/maplesap_flow"));
     public static final Fluid fluidMapleSyrup = new Fluid("maple_syrup_fluid",new ResourceLocation(MapleSyrup.MODID+":blocks/maplesyrup_still"),new ResourceLocation(MapleSyrup.MODID+":blocks/maplesyrup_flow"));
 
+    public static final Fluid fluidBirchSap = new Fluid("birch_sap_fluid",new ResourceLocation(MapleSyrup.MODID+":blocks/birchsap_still"),new ResourceLocation(MapleSyrup.MODID+":blocks/birchsap_flow"));
+    public static final Fluid fluidBirchSyrup = new Fluid("birch_syrup_fluid",new ResourceLocation(MapleSyrup.MODID+":blocks/birchsyrup_still"),new ResourceLocation(MapleSyrup.MODID+":blocks/birchsyrup_flow"));
+
 
 }

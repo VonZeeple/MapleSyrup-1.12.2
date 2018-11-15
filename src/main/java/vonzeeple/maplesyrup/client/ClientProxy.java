@@ -42,6 +42,7 @@ public class ClientProxy extends CommonProxy {
         registerRender(Content.itemPancakeMix);
         registerRender(Content.itemMapleSyrupBottle);
         registerRender(Content.itemHydrometer);
+        registerRender(Content.itemSugarBucket);
 
         ClientRegistry.bindTileEntitySpecialRenderer( TileEntityEvaporator.class , new TESRevaporator());
         ClientRegistry.bindTileEntitySpecialRenderer( TileEntityTreeTap.class , new TESRtreetap());

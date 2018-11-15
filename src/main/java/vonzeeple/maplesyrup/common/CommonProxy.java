@@ -47,6 +47,10 @@ public class CommonProxy {
         FluidRegistry.registerFluid(Content.fluidMapleSyrup);
         FluidRegistry.addBucketForFluid(Content.fluidMapleSyrup);
 
+        FluidRegistry.registerFluid(Content.fluidBirchSap);
+        FluidRegistry.addBucketForFluid(Content.fluidBirchSap);
+        FluidRegistry.registerFluid(Content.fluidBirchSyrup);
+        FluidRegistry.addBucketForFluid(Content.fluidBirchSyrup);
     }
 
     public void init(FMLInitializationEvent e) {
