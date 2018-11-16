@@ -9,13 +9,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import vonzeeple.maplesyrup.common.Content;
+import vonzeeple.maplesyrup.common.blocks.BlockMapleLeaves;
 
 
 public class WorldGenMapleTree extends WorldGenAbstractTree{
 
     private static final IBlockState LOG = Content.blockMapleLog.getDefaultState();
     //private static final IBlockState LEAF = Content.mapleLeaves.getDefaultState().withProperty(BlockOldLeaf.CHECK_DECAY, Boolean.valueOf(false));
-    private static final IBlockState LEAF = Content.blockMapleLeaves.getDefaultState();
+    private static IBlockState LEAF;
     private final boolean useExtraRandomHeight;
 
     public WorldGenMapleTree(boolean notify, boolean useExtraRandomHeightIn)
@@ -27,6 +28,7 @@ public class WorldGenMapleTree extends WorldGenAbstractTree{
     public boolean generate(World worldIn, Random rand, BlockPos position)
     {
 
+        LEAF=Content.blockMapleLeaves.getDefaultState().withProperty(BlockMapleLeaves.colorIndex,rand.nextInt(4));
         //Height of the main trunk
         int i = 8 + rand.nextInt(6);
 

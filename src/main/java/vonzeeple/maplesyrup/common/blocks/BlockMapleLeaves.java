@@ -3,10 +3,13 @@ package vonzeeple.maplesyrup.common.blocks;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -26,13 +29,52 @@ import java.util.Random;
 
 public class BlockMapleLeaves extends BlockLeaves {
 
+    public static final PropertyInteger colorIndex= PropertyInteger.create("colorindex",0,3);
 
+    private String[] subNames={"maple_leaves_red","maple_leaves_orange", "maple_leaves_yellow", "maple_leaves_green"};
     public BlockMapleLeaves(){
         super();
         this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, Boolean.valueOf(true)).withProperty(DECAYABLE, Boolean.valueOf(true)));
         setCreativeTab(MapleSyrup.creativeTab);
         setUnlocalizedName("maple_leaves");
         setRegistryName("maplesyrup:maple_leaves");
+
+    }
+
+
+    public String getUnlocalizedName( ItemStack stack) {
+
+        return "item."+subNames[stack.getMetadata()%4];
+    }
+
+    public int getColor(int meta){return meta%4;}
+    /**
+     * Convert the given metadata into a BlockState for this Block
+     */
+    public IBlockState getStateFromMeta(int meta)
+    {
+        return this.getDefaultState().withProperty(colorIndex, this.getColor(meta)).withProperty(DECAYABLE, Boolean.valueOf((meta & 4) == 0)).withProperty(CHECK_DECAY, Boolean.valueOf((meta & 8) > 0));
+    }
+
+    /**
+     * Convert the BlockState into the correct metadata value
+     */
+    public int getMetaFromState(IBlockState state)
+    {
+        int i = 0;
+        i = i | state.getValue(colorIndex);
+
+        if (!((Boolean)state.getValue(DECAYABLE)).booleanValue())
+        {
+            i |= 4;
+        }
+
+        if (((Boolean)state.getValue(CHECK_DECAY)).booleanValue())
+        {
+            i |= 8;
+        }
+
+        return i;
     }
 
     @Override
@@ -61,33 +103,21 @@ public class BlockMapleLeaves extends BlockLeaves {
         return Item.getItemFromBlock(Content.blockMapleSapling);
     }
 
-    public IBlockState getStateFromMeta(int meta)
+    /**
+     * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+     */
+    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
     {
-        return this.getDefaultState().withProperty(DECAYABLE, Boolean.valueOf((meta & 4) == 0)).withProperty(CHECK_DECAY, Boolean.valueOf((meta & 8) > 0));
-    }
-
-    public int getMetaFromState(IBlockState state)
-    {
-        int i = 0;
-        i = i | 0;
-
-        if (!((Boolean)state.getValue(DECAYABLE)).booleanValue())
-        {
-            i |= 4;
-        }
-
-        if (((Boolean)state.getValue(CHECK_DECAY)).booleanValue())
-        {
-            i |= 8;
-        }
-
-        return i;
+        items.add(new ItemStack(this, 1,0));
+        items.add(new ItemStack(this, 1,1));
+        items.add(new ItemStack(this, 1,2));
+        items.add(new ItemStack(this, 1,3));
     }
 
     @Override
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {CHECK_DECAY, DECAYABLE});
+        return new BlockStateContainer(this, new IProperty[] {colorIndex,CHECK_DECAY, DECAYABLE});
     }
     @Override
     public BlockPlanks.EnumType getWoodType(int meta) {
@@ -109,7 +139,7 @@ public class BlockMapleLeaves extends BlockLeaves {
             @Override
             protected ModelResourceLocation getModelResourceLocation(IBlockState state)
             {
-                return new ModelResourceLocation(MapleSyrup.MODID.toLowerCase() + ":maple_leaves", "normal");
+                return new ModelResourceLocation(MapleSyrup.MODID.toLowerCase() + ":maple_leaves", "colorindex="+state.getValue(colorIndex));
             }
         };
     }

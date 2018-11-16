@@ -12,47 +12,46 @@ import javax.annotation.Nullable;
 
 
 //Inject values from registry
-@ObjectHolder("maplesyrup")
 public class Content {
 
-    @ObjectHolder("evaporator")//format modid:name
+    @ObjectHolder(MapleSyrup.MODID+":"+"evaporator")//format modid:name
     public static final BlockEvaporator blockEvaporator = null;
 
-    @ObjectHolder("maple_log")//format modid:name
+    @ObjectHolder(MapleSyrup.MODID+":"+"maple_log")//format modid:name
     public static final BlockMapleLog blockMapleLog = null;
 
-    @ObjectHolder("maple_leaves")//format modid:name
+    @ObjectHolder(MapleSyrup.MODID+":"+"maple_leaves")//format modid:name
     public static final BlockMapleLeaves blockMapleLeaves = null;
 
-    @ObjectHolder("tree_tap")//format modid:name
+    @ObjectHolder(MapleSyrup.MODID+":"+"tree_tap")//format modid:name
     public static final BlockTreeTap blockTreeTap = null;
 
-    @ObjectHolder("maple_sapling")//format modid:name
+    @ObjectHolder(MapleSyrup.MODID+":"+"maple_sapling")//format modid:name
     public static final BlockMapleSapling blockMapleSapling = null;
 
-    @ObjectHolder("maple_sap_fluid")//format modid:name
+    @ObjectHolder(MapleSyrup.MODID+":"+"maple_sap_fluid")//format modid:name
     public static final BlockFluid blockFluidMapleSap = null;
 
-    @ObjectHolder("maple_syrup_fluid")//format modid:name
+    @ObjectHolder(MapleSyrup.MODID+":"+"maple_syrup_fluid")//format modid:name
     public static final BlockFluid blockFluidMapleSyrup = null;
     //public static final BlockFluidMapleSyrup blockFluidMapleSyrup = null;
 
-    @ObjectHolder("sugarbucket")//format modid:name
+    @ObjectHolder(MapleSyrup.MODID+":"+"sugarbucket")//format modid:name
     public static final ItemSugarBucket itemSugarBucket = null;
     //public static final BlockFluidMapleSyrup blockFluidMapleSyrup = null;
 
-    @ObjectHolder("pancakes")//format modid:name
+    @ObjectHolder(MapleSyrup.MODID+":"+"pancakes")//format modid:name
     public static final ItemPancakes itemPancakes = null;
     //public static final BlockFluidMapleSyrup blockFluidMapleSyrup = null;
 
-    @ObjectHolder("pancakemix")//format modid:name
+    @ObjectHolder(MapleSyrup.MODID+":"+"pancakemix")//format modid:name
     public static final ItemPancakeMix itemPancakeMix = null;
     //public static final BlockFluidMapleSyrup blockFluidMapleSyrup = null;
 
-    @ObjectHolder("bottle_maplesyrup")//format modid:name
+    @ObjectHolder(MapleSyrup.MODID+":"+"bottle_maplesyrup")//format modid:name
     public static final ItemMapleSyrupBottle itemMapleSyrupBottle = null;
 
-    @ObjectHolder("hydrometer")//format modid:name
+    @ObjectHolder(MapleSyrup.MODID+":"+"hydrometer")//format modid:name
     public static final ItemHydrometer itemHydrometer = null;
 
 

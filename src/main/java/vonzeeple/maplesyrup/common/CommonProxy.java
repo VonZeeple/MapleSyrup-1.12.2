@@ -99,7 +99,7 @@ public class CommonProxy {
         event.getRegistry().register(new ItemBlock(Content.blockEvaporator).setRegistryName(Content.blockEvaporator.getRegistryName()));
         event.getRegistry().register(new ItemBlock(Content.blockMapleLog).setRegistryName(Content.blockMapleLog.getRegistryName()));
         event.getRegistry().register(new ItemBlock(Content.blockTreeTap).setRegistryName(Content.blockTreeTap.getRegistryName()));
-        event.getRegistry().register(new ItemBlock(Content.blockMapleLeaves).setRegistryName(Content.blockMapleLeaves.getRegistryName()));
+        event.getRegistry().register(new ItemMapleLeaves(Content.blockMapleLeaves).setRegistryName(Content.blockMapleLeaves.getRegistryName()));
         ItemBlock itemBlockMapleSapling = new ItemBlock(Content.blockMapleSapling) {
             @Override
             public int getItemBurnTime(ItemStack itemStack) { return 100; }

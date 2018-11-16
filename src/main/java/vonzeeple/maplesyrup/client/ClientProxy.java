@@ -36,7 +36,7 @@ public class ClientProxy extends CommonProxy {
         registerRender(Item.getItemFromBlock(Content.blockMapleLog));
         registerRender(Item.getItemFromBlock(Content.blockEvaporator));
         registerRender(Item.getItemFromBlock(Content.blockMapleSapling));
-        registerRender(Item.getItemFromBlock(Content.blockMapleLeaves));
+        registerRenderLeaves(Item.getItemFromBlock(Content.blockMapleLeaves));
         registerRender(Item.getItemFromBlock(Content.blockTreeTap));
         registerRender_food(Content.itemPancakes);
         registerRender(Content.itemPancakeMix);
@@ -57,15 +57,21 @@ public class ClientProxy extends CommonProxy {
     public void init(FMLInitializationEvent e) {
         super.init(e);
 
-        ResourceLocation leavesColor = new ResourceLocation(MapleSyrup.MODID, "textures/blocks/leaves_maple_color.png");
-        BlockColors blockColors = Minecraft.getMinecraft().getBlockColors();
-        blockColors.registerBlockColorHandler(new MapleLeavesColor(Minecraft.getMinecraft().getResourceManager()),Content.blockMapleLeaves);
+        //ResourceLocation leavesColor = new ResourceLocation(MapleSyrup.MODID, "textures/blocks/leaves_maple_color.png");
+        //BlockColors blockColors = Minecraft.getMinecraft().getBlockColors();
+        //blockColors.registerBlockColorHandler(new MapleLeavesColor(Minecraft.getMinecraft().getResourceManager()),Content.blockMapleLeaves);
 
     }
 
     public static void registerRender(Item item) {
         ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation( item.getRegistryName(), "inventory"));
     }
+    public static void registerRenderLeaves(Item item) {
+        for (int i=0;i<4;i++) {
+            ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(item.getRegistryName(), "colorindex="+i));
+        }
+    }
+
     public static void registerRender_food(ItemPancakes item) {
         String[] names=item.getSubNames();
         for (int i = 0; i < names.length; i++) {
