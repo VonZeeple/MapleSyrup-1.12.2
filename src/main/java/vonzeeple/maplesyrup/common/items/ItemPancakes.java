@@ -14,9 +14,9 @@ import javax.annotation.Nonnull;
 public class ItemPancakes extends ItemFood {
 
 
-    private String[] subNames={"pancakes","pancakes_with_syrup", "pancakes_with_bacon", "candied_bacon"};
-    private float[] satModifier={0.6f,0.6f,0.6f};
-    private int[] healAmount={1,2,3};
+    private String[] subNames={"pancakes","pancakes_with_syrup", "pancakes_with_bacon", "candied_bacon","maple_biscuits"};
+    private float[] satModifier={0.6f,0.6f,0.6f,0.6f};
+    private int[] healAmount={1,2,3,4};
 
     public ItemPancakes(){
         super(0,false);
@@ -38,6 +38,7 @@ public class ItemPancakes extends ItemFood {
         items.add(new ItemStack(this, 1, 1));
         items.add(new ItemStack(this, 1, 2));
         items.add(new ItemStack(this, 1, 3));
+        items.add(new ItemStack(this, 1, 4));
     }
     private int getIndex(int value){ return (value < 4 ? value : 0 );}
 
