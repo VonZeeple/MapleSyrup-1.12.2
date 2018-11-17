@@ -40,7 +40,7 @@ public class ItemPancakes extends ItemFood {
         items.add(new ItemStack(this, 1, 3));
         items.add(new ItemStack(this, 1, 4));
     }
-    private int getIndex(int value){ return (value < 4 ? value : 0 );}
+    private int getIndex(int value){ return value%5;}
 
     @Override
     public float getSaturationModifier(ItemStack stack)
