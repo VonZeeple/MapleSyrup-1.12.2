@@ -12,6 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -49,8 +50,8 @@ public class TileEntityTreeTap extends TileEntity implements ITickable{
         if(tickCounter>80){
             Random rand = new Random();
             if (rand.nextDouble() < 0.1D) {
-
-                if (this.checkTapping() != null) {
+                FluidStack fluidstack=this.checkTapping();
+                if (fluidstack != null) {
 
                     //Only server side
                     if (!this.getWorld().isRemote) {
@@ -64,7 +65,7 @@ public class TileEntityTreeTap extends TileEntity implements ITickable{
                     //Only client side
                     if (this.getWorld().isRemote) {
 
-                        this.spawnParticles(this.getWorld(), pos, this.getWorld().getBlockState(pos));
+                        this.spawnParticles(this.getWorld(), pos, this.getWorld().getBlockState(pos),fluidstack);
                     }
                     tickCounter = 1;
                 }
@@ -116,7 +117,7 @@ public class TileEntityTreeTap extends TileEntity implements ITickable{
 
     }
     @SideOnly(Side.CLIENT)
-    private void spawnParticles(World worldIn, BlockPos pos, IBlockState state)
+    private void spawnParticles(World worldIn, BlockPos pos, IBlockState state,FluidStack fluidstack)
     {
         double x1;
         double z1;
@@ -144,10 +145,10 @@ public class TileEntityTreeTap extends TileEntity implements ITickable{
         }
 
         double xpos=pos.getX()+x1;
-        double ypos=pos.getY()+0.55D;
+        double ypos=pos.getY()+0.57D;
         double zpos=pos.getZ()+z1;
-
-        ParticleSap newEffect = new ParticleSap(worldIn, xpos, ypos, zpos);
+        ResourceLocation resource=fluidstack.getFluid().getStill();
+        ParticleSap newEffect = new ParticleSap(worldIn, xpos, ypos, zpos,resource);
         Minecraft.getMinecraft().effectRenderer.addEffect(newEffect);
         //worldIn.playSound((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, SoundEvents.UI_BUTTON_CLICK, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
 

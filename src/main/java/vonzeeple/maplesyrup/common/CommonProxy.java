@@ -33,6 +33,7 @@ import vonzeeple.maplesyrup.common.tileEntities.TileEntityEvaporator;
 import vonzeeple.maplesyrup.common.tileEntities.TileEntityTreeTap;
 import vonzeeple.maplesyrup.api.EvaporationProcessesHandler;
 import vonzeeple.maplesyrup.api.TappableBlockHandler;
+import vonzeeple.maplesyrup.utils.EvaporationProcess;
 
 import static vonzeeple.maplesyrup.MapleSyrup.instance;
 
@@ -63,8 +64,10 @@ public class CommonProxy {
 
         TappableBlockHandler.registerTappableBlock(Content.blockMapleLog.getDefaultState().withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.Y), new FluidStack(Content.fluidMapleSap,200));
         TappableBlockHandler.registerTappableBlock(Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH), new FluidStack(Content.fluidMapleSap,200));
-        EvaporationProcessesHandler.registerProcess(Content.fluidMapleSap, Content.fluidMapleSyrup, 10,37,"Sugar");
+        TappableBlockHandler.registerTappableBlock(Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.OAK), new FluidStack(FluidRegistry.WATER,200));
 
+        EvaporationProcess process =new EvaporationProcess(Content.fluidMapleSap,Content.fluidMapleSyrup, 10, 37, "sugar");
+        EvaporationProcessesHandler.registerProcess(process);
         addPattern(MapleSyrup.MODID.toLowerCase()+"_banner","vz_map",new ItemStack(Content.itemMapleSyrupBottle,1));
 
     }

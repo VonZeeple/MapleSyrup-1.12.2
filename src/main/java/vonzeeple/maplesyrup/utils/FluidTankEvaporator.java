@@ -4,8 +4,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import vonzeeple.maplesyrup.api.EvaporationProcess;
 import vonzeeple.maplesyrup.api.EvaporationProcessesHandler;
+import vonzeeple.maplesyrup.api.IEvaporationProcess;
 
 public class FluidTankEvaporator extends FluidTank {
 
@@ -48,7 +48,7 @@ public class FluidTankEvaporator extends FluidTank {
     public String getConcentration(){
         if(fluid.getFluid()==null){return "None";}
         if(!EvaporationProcessesHandler.canBeEvaporated(fluid.getFluid())){return "None";}
-        EvaporationProcess process=EvaporationProcessesHandler.getProcess(this.getFluid().getFluid());
+        IEvaporationProcess process=EvaporationProcessesHandler.getProcess(this.getFluid().getFluid());
         int concentration=(int)(this.materialContent*process.getEndConcentration()/getFluidAmount()/process.getRatio());
         return process.getMaterialName()+": "+concentration+"%";
 
@@ -66,7 +66,7 @@ public class FluidTankEvaporator extends FluidTank {
 
         //Dilution
         if(fs!=null){
-            if(EvaporationProcessesHandler.getConcentratedFluid(resource.getFluid())== fs.getFluid().getName()){
+            if(EvaporationProcessesHandler.getProcess(resource.getFluid()).getConcentratedFluid().getName()== fs.getFluid().getName()){
 
                 amount=fillInternal(new FluidStack(fs, resource.amount), false);
                 int oldAmount=fs.amount;
@@ -105,9 +105,9 @@ public class FluidTankEvaporator extends FluidTank {
             return;
 
         //Test if the content can be transformed in the concentrated version
-        if(materialContent >=EvaporationProcessesHandler.getRatio(fluid.getFluid())*(float)this.getFluidAmount()/1000f){
+        if(materialContent >=EvaporationProcessesHandler.getProcess(fluid.getFluid()).getRatio()*(float)this.getFluidAmount()/1000f){
             int fluidamount=getFluidAmount();
-            String conFluidname=EvaporationProcessesHandler.getConcentratedFluid(fluid.getFluid());
+            String conFluidname=EvaporationProcessesHandler.getProcess(fluid.getFluid()).getConcentratedFluid().getName();
             FluidStack conFluid= FluidRegistry.getFluidStack(conFluidname, fluidamount);
             drainInternal(new FluidStack(fluid, fluidamount) ,true);
             fillInternal(conFluid,true);
