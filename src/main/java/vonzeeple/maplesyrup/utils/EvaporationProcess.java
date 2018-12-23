@@ -20,7 +20,7 @@ public class EvaporationProcess implements IEvaporationProcess {
     }
     public float getRatio(){return this.ratio;}
     public Fluid getConcentratedFluid(){return this.endFluid;}
-    public float getEndConcentration(){return this.endConcentration;}
+    public float getBaseConcentration(){return this.endConcentration;}
     public String getMaterialName(){return this.materialName;}
 
     public Fluid getFluid(){return this.startFluid;}

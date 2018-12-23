@@ -10,10 +10,12 @@ import vonzeeple.maplesyrup.api.IEvaporationProcess;
 public class FluidTankEvaporator extends FluidTank {
 
     protected float materialContent;
+    protected String materialName;
 
     public FluidTankEvaporator(int capacity) {
         super(capacity);
         this.materialContent =0;
+        this.materialName="";
 
     }
 
@@ -46,11 +48,8 @@ public class FluidTankEvaporator extends FluidTank {
 
 
     public String getConcentration(){
-        if(fluid.getFluid()==null){return "None";}
-        if(!EvaporationProcessesHandler.canBeEvaporated(fluid.getFluid())){return "None";}
-        IEvaporationProcess process=EvaporationProcessesHandler.getProcess(this.getFluid().getFluid());
-        int concentration=(int)(this.materialContent*process.getEndConcentration()/getFluidAmount()/process.getRatio());
-        return process.getMaterialName()+": "+concentration+"%";
+        if(this.fluid==null){return "None";}
+        return String.valueOf((int)(materialContent/this.getFluidAmount()*100))+"% "+materialName;
 
     }
     @Override
@@ -63,7 +62,7 @@ public class FluidTankEvaporator extends FluidTank {
             return 0;
 
         FluidStack fs= this.getFluid();
-
+        IEvaporationProcess process=EvaporationProcessesHandler.getProcess(resource.getFluid());
         //Dilution
         if(fs!=null){
             if(EvaporationProcessesHandler.getProcess(resource.getFluid()).getConcentratedFluid().getName()== fs.getFluid().getName()){
@@ -73,7 +72,8 @@ public class FluidTankEvaporator extends FluidTank {
                 if(doFill){
                     drainInternal(new FluidStack(fs,oldAmount),true);
                     fillInternal(new FluidStack(resource,oldAmount),true);
-                    materialContent +=(float)amount/1000f;
+                    this.materialContent +=(float)amount/1000f*process.getBaseConcentration();
+                    this.materialName=process.getMaterialName();
                     return fillInternal(resource, true);}else{
 
                     return fillInternal(new FluidStack(fs, resource.amount), false);}
@@ -82,8 +82,8 @@ public class FluidTankEvaporator extends FluidTank {
 
         //otherwise
         if(doFill)
-            materialContent +=(float)fill(resource, false)/1000f;
-
+            this.materialContent +=(float)fill(resource, false)/1000f*process.getBaseConcentration();
+            this.materialName=process.getMaterialName();
         return fillInternal(resource, doFill);
     }
 
@@ -105,7 +105,8 @@ public class FluidTankEvaporator extends FluidTank {
             return;
 
         //Test if the content can be transformed in the concentrated version
-        if(materialContent >=EvaporationProcessesHandler.getProcess(fluid.getFluid()).getRatio()*(float)this.getFluidAmount()/1000f){
+        IEvaporationProcess process=EvaporationProcessesHandler.getProcess(fluid.getFluid());
+        if(materialContent >=process.getRatio()*process.getBaseConcentration()*(float)this.getFluidAmount()/1000f){
             int fluidamount=getFluidAmount();
             String conFluidname=EvaporationProcessesHandler.getProcess(fluid.getFluid()).getConcentratedFluid().getName();
             FluidStack conFluid= FluidRegistry.getFluidStack(conFluidname, fluidamount);
@@ -128,6 +129,14 @@ public class FluidTankEvaporator extends FluidTank {
         {
             materialContent = 0f;
         }
+        if (nbt.hasKey("materialName"))
+        {
+            materialName = nbt.getString("materialName");
+        }
+        else
+        {
+            materialName = "";
+        }
         return super.readFromNBT(nbt);
     }
 
@@ -135,6 +144,7 @@ public class FluidTankEvaporator extends FluidTank {
     public NBTTagCompound writeToNBT(NBTTagCompound nbt)
     {
         nbt.setFloat("materialContent", this.getMaterialContent());
+        nbt.setString("materialName", this.materialName);
         return super.writeToNBT(nbt);
     }
 

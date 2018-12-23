@@ -2,31 +2,33 @@ package vonzeeple.maplesyrup.api;
 
 import net.minecraftforge.fluids.Fluid;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EvaporationProcessesHandler {
 
-    protected static final HashMap<String, IEvaporationProcess> EvaporationProcesses = new HashMap<>();
+    protected static final ArrayList<IEvaporationProcess> EvaporationProcesses = new ArrayList<>();
 
 
     public static void registerProcess(IEvaporationProcess process)
     {
         //should test if valid process
         if(process != null ){
-            EvaporationProcesses.put(process.getFluid().getName(), process );
+            EvaporationProcesses.add(process);
         }
     }
 
-
-    public static IEvaporationProcess getProcess(Fluid fluid){
-        if(canBeEvaporated(fluid) && fluid !=null){
-            return EvaporationProcesses.get(fluid.getName());
-        }
+    public static IEvaporationProcess getProcess(Fluid startFluid){
+        if(startFluid==null)
+            return null;
+        for(IEvaporationProcess process : EvaporationProcesses)
+            if(process.getFluid()== startFluid)
+                return process;
         return null;
     }
     public static boolean canBeEvaporated(Fluid fluid){
         if(fluid != null)
-            return EvaporationProcesses.containsKey(fluid.getName());
+            return !(getProcess(fluid)==null);
 
         return false;
     }

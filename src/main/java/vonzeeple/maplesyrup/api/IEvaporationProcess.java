@@ -6,7 +6,7 @@ public interface IEvaporationProcess {
 
     float getRatio();
     Fluid getConcentratedFluid();
-    float getEndConcentration();
+    float getBaseConcentration();
     String getMaterialName();
     Fluid getFluid();
 }

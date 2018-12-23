@@ -1,4 +1,4 @@
 package vonzeeple.maplesyrup.api;
 
-public interface ITapReceipe {
+public interface ITapRecipe {
 }
