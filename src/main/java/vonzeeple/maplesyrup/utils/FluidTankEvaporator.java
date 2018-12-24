@@ -1,5 +1,6 @@
 package vonzeeple.maplesyrup.utils;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -49,7 +50,7 @@ public class FluidTankEvaporator extends FluidTank {
 
     public String getConcentration(){
         if(this.fluid==null){return "None";}
-        return String.valueOf((int)(materialContent/this.getFluidAmount()*100))+"% "+materialName;
+        return String.valueOf((int)(materialContent/this.getFluidAmount()*100))+"% "+I18n.format("solute."+materialName+".name");
 
     }
     @Override

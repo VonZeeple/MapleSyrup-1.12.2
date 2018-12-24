@@ -2,8 +2,10 @@
 language.region=United States
 language.code=en_us
 
+#Creative
 itemGroup.maplesyrup=Maple Syrup Mod
 
+#Blocks
 tile.maple_log.name=Sugar Maple Log
 tile.maple_sapling.name=Sugar Maple Sapling
 tile.maple_leaves.name=Sugar Maple Leaves
@@ -15,6 +17,11 @@ tile.tree_tap.name=Tree Tap
 tile.evaporator.name=Evaporator
 tile.large_evaporator.name=Evaporator
 
+#GUI
+gui.evaporator.title=Evaporator GUI
+
+
+#Items
 item.pancakes.name=Pancakes
 item.pancakemix.name=Pancake Mix
 item.candied_bacon.name=Candied Bacon
@@ -24,6 +31,8 @@ item.maple_biscuits.name=Maple biscuits
 item.item_hydrometer.name=Hydrometer
 item.bottle_maplesyrup.name=Maple Syrup Bottle
 item.sugarbucket.name=Sugar in bucket
+
+#Banners
 item.banner.maplesyrup_banner.black=Black Maple Leaf
 item.banner.maplesyrup_banner.red=Red Maple Leaf
 item.banner.maplesyrup_banner.green=Green Maple Leaf
@@ -41,13 +50,16 @@ item.banner.maplesyrup_banner.magenta=Magenta Maple Leaf
 item.banner.maplesyrup_banner.orange=Orange Maple Leaf
 item.banner.maplesyrup_banner.white=White Maple Leaf
 
+#Fluids
 tile.maple_syrup_fluid.name=Maple Syrup
 tile.birch_syrup_fluid.name=Birch Syrup
 tile.maple_sap_fluid.name=Maple Sap
 tile.maple_birch_fluid.name=Birch Sap
 
-
 fluid.maple_syrup_fluid=Maple Syrup
 fluid.birch_syrup_fluid=Birch Syrup
 fluid.maple_sap_fluid=Maple Sap
 fluid.birch_sap_fluid=Birch Sap
+
+#Solutes (Dissolved materials)
+solute.sugar.name=Dissolved Sugar
