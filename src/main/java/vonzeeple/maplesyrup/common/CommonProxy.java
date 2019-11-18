@@ -9,6 +9,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.EnumHelper;
@@ -25,15 +26,16 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraftforge.registries.RegistryBuilder;
 import vonzeeple.maplesyrup.MapleSyrup;
 import vonzeeple.maplesyrup.common.blocks.*;
 import vonzeeple.maplesyrup.client.gui.GuiProxy;
 import vonzeeple.maplesyrup.common.items.*;
+import vonzeeple.maplesyrup.common.processing.*;
 import vonzeeple.maplesyrup.common.tileEntities.TileEntityEvaporator;
 import vonzeeple.maplesyrup.common.tileEntities.TileEntityTreeTap;
-import vonzeeple.maplesyrup.api.EvaporationProcessesHandler;
-import vonzeeple.maplesyrup.api.TappableBlockHandler;
-import vonzeeple.maplesyrup.utils.EvaporationProcess;
 
 import static vonzeeple.maplesyrup.MapleSyrup.instance;
 
@@ -52,6 +54,8 @@ public class CommonProxy {
         FluidRegistry.addBucketForFluid(Content.fluidBirchSap);
         FluidRegistry.registerFluid(Content.fluidBirchSyrup);
         FluidRegistry.addBucketForFluid(Content.fluidBirchSyrup);
+
+        ProcessesHandler.get_instance().PreInit();
     }
 
     public void init(FMLInitializationEvent e) {
@@ -66,11 +70,9 @@ public class CommonProxy {
         TappableBlockHandler.registerTappableBlock(Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH), new FluidStack(Content.fluidMapleSap,200));
         TappableBlockHandler.registerTappableBlock(Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.OAK), new FluidStack(FluidRegistry.WATER,200));
 
-        EvaporationProcessesHandler.registerProcess(new EvaporationProcess(Content.fluidMapleSap,Content.fluidMapleSyrup, 10, 37, "sugar"));
-        EvaporationProcessesHandler.registerProcess(new EvaporationProcess(Content.fluidBirchSap,Content.fluidBirchSyrup, 10, 37, "sugar"));
-
         addPattern(MapleSyrup.MODID.toLowerCase()+"_banner","vz_map",new ItemStack(Content.itemMapleSyrupBottle,1));
 
+        ProcessesHandler.get_instance().Init();
     }
     private static void addPattern(String name, String id, ItemStack craftingItem)
     {
@@ -78,6 +80,20 @@ public class CommonProxy {
     }
     public void postInit(FMLPostInitializationEvent event) {
 
+    }
+
+    @SubscribeEvent
+    public static void createRegistries(RegistryEvent.NewRegistry event){
+
+        buildRegistry(new ResourceLocation(MapleSyrup.MODID+":evaporation_registry"), EvaporationProcess.class);
+        buildRegistry(new ResourceLocation(MapleSyrup.MODID+":treeTapping_registry"), TappingProcess.class);
+
+    }
+
+    private static<T extends IForgeRegistryEntry<T> > void buildRegistry(ResourceLocation location, Class<T> entry){
+        RegistryBuilder<T> builder = new RegistryBuilder<T>().setType(entry);
+        builder.setName(location);
+        builder.create();
     }
 
     @SubscribeEvent
@@ -114,6 +130,7 @@ public class CommonProxy {
     public static void registerOres(){
 
         OreDictionary.registerOre("listAllsugar",Items.SUGAR);// From Harvestcraft
+        OreDictionary.registerOre("listAllsugar",Content.itemSugarBucket);
         OreDictionary.registerOre("listAllegg",Items.EGG);
         OreDictionary.registerOre("listAllmilk",Items.MILK_BUCKET);
         //For compat with harvestcraft

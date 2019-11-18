@@ -1,4 +1,4 @@
-package vonzeeple.maplesyrup.api;
+package vonzeeple.maplesyrup.common.processing;
 
 
 import net.minecraft.block.state.IBlockState;

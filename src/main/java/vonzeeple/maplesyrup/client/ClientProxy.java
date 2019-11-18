@@ -56,7 +56,6 @@ public class ClientProxy extends CommonProxy {
 
     public void init(FMLInitializationEvent e) {
         super.init(e);
-
         //ResourceLocation leavesColor = new ResourceLocation(MapleSyrup.MODID, "textures/blocks/leaves_maple_color.png");
         //BlockColors blockColors = Minecraft.getMinecraft().getBlockColors();
         //blockColors.registerBlockColorHandler(new MapleLeavesColor(Minecraft.getMinecraft().getResourceManager()),Content.blockMapleLeaves);

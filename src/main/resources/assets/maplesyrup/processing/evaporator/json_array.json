@@ -1,0 +1,12 @@
+[
+  {
+    "field1":"content of field1 of 1",
+    "field2":"content of field2 of 1",
+    "field3":"content of field3 of 1"
+  },
+  {
+    "field1":"content of field1 of 2",
+    "field2":"content of field2 of 2",
+    "field3":"content of field3 of 2"
+  }
+]

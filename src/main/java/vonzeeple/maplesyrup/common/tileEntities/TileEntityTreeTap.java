@@ -27,8 +27,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import vonzeeple.maplesyrup.client.particles.ParticleSap;
 import vonzeeple.maplesyrup.common.blocks.BlockTreeTap;
 import vonzeeple.maplesyrup.utils.ItemHandlerTreeTap;
-import vonzeeple.maplesyrup.api.TappableBlockHandler;
-import vonzeeple.maplesyrup.utils.Logger;
+import vonzeeple.maplesyrup.common.processing.TappableBlockHandler;
 
 import java.util.Random;
 

@@ -5,8 +5,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import vonzeeple.maplesyrup.api.EvaporationProcessesHandler;
-import vonzeeple.maplesyrup.api.IEvaporationProcess;
+import vonzeeple.maplesyrup.common.processing.EvaporationProcess;
+import vonzeeple.maplesyrup.common.processing.ProcessesHandler;
 
 public class FluidTankEvaporator extends FluidTank {
 
@@ -23,7 +23,7 @@ public class FluidTankEvaporator extends FluidTank {
     @Override
     public boolean canFillFluidType(FluidStack fluid)
     {
-        return EvaporationProcessesHandler.canBeEvaporated(fluid.getFluid());
+        return (!(ProcessesHandler.find_evaporation_recipe(fluid.getFluid()) == null));
     }
 
     @Override
@@ -59,14 +59,14 @@ public class FluidTankEvaporator extends FluidTank {
         int amount;
         if(resource==null)
             return 0;
-        if(!EvaporationProcessesHandler.canBeEvaporated(resource.getFluid()))
+        if(ProcessesHandler.find_evaporation_recipe(resource.getFluid()) == null)
             return 0;
 
         FluidStack fs= this.getFluid();
-        IEvaporationProcess process=EvaporationProcessesHandler.getProcess(resource.getFluid());
+        EvaporationProcess process=ProcessesHandler.find_evaporation_recipe(resource.getFluid());
         //Dilution
         if(fs!=null){
-            if(EvaporationProcessesHandler.getProcess(resource.getFluid()).getConcentratedFluid().getName()== fs.getFluid().getName()){
+            if(ProcessesHandler.find_evaporation_recipe(resource.getFluid()).getConcentratedFluid().getName()== fs.getFluid().getName()){
 
                 amount=fillInternal(new FluidStack(fs, resource.amount), false);
                 int oldAmount=fs.amount;
@@ -92,7 +92,7 @@ public class FluidTankEvaporator extends FluidTank {
         FluidStack fluid=this.getFluid();
         if(fluid==null)
             return false;
-        if(!EvaporationProcessesHandler.canBeEvaporated(fluid.getFluid()))
+        if(ProcessesHandler.find_evaporation_recipe(fluid.getFluid()) == null)
             return false;
         return true;
     }
@@ -102,14 +102,14 @@ public class FluidTankEvaporator extends FluidTank {
         FluidStack fluid=this.getFluid();
         if(fluid==null)
             return;
-        if(!EvaporationProcessesHandler.canBeEvaporated(fluid.getFluid()))
+        if(ProcessesHandler.find_evaporation_recipe(fluid.getFluid()) == null)
             return;
 
         //Test if the content can be transformed in the concentrated version
-        IEvaporationProcess process=EvaporationProcessesHandler.getProcess(fluid.getFluid());
+        EvaporationProcess process=ProcessesHandler.find_evaporation_recipe(fluid.getFluid());
         if(materialContent >=process.getRatio()*process.getBaseConcentration()*(float)this.getFluidAmount()/1000f){
             int fluidamount=getFluidAmount();
-            String conFluidname=EvaporationProcessesHandler.getProcess(fluid.getFluid()).getConcentratedFluid().getName();
+            String conFluidname=ProcessesHandler.find_evaporation_recipe(fluid.getFluid()).getConcentratedFluid().getName();
             FluidStack conFluid= FluidRegistry.getFluidStack(conFluidname, fluidamount);
             drainInternal(new FluidStack(fluid, fluidamount) ,true);
             fillInternal(conFluid,true);

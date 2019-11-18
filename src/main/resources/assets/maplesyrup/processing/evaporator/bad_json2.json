@@ -1,0 +1,18 @@
+[{
+  "inputFluid": "maple_sap_fluid",
+  "inputFluid": "maple_syrup_fluid",
+  "ratio": 10,
+  "endConcentration": 37,
+  "materialName": "sugar",
+  "speedMultiplier": 1
+},
+  {
+    "inputFluid": "birch_sap_fluid",
+    "outputFluid": "birch_syrup_fluid",
+    "ratio": 10,
+    "endConcentration": 37,
+    "materialName": "sugar",
+    "speedMultiplier": 1
+
+  }
+]

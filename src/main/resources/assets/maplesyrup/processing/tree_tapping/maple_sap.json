@@ -1,0 +1,5 @@
+[{
+  "block": "maplesyrup:maple_log{axis = y}",
+  "fluid":"maple_sap_fluid",
+  "amount": 200
+}]
