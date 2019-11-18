@@ -8,7 +8,7 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import vonzeeple.maplesyrup.MapleSyrup;
 
-public class BlockFluid extends BlockFluidClassic {
+public class BlockFluid extends BlockFluidClassic implements ICustomMappedBlock{
 
     public String name;
 

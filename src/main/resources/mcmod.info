@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "maplesyrup",
+  "name": "Maple Syrup",
+  "description": "A mod around Maple Syrup and tree tapping",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["VonZeeple"],
+  "credits": "Von Zeeple",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

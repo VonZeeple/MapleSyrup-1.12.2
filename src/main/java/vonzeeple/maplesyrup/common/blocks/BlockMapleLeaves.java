@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
-public class BlockMapleLeaves extends BlockLeaves {
+public class BlockMapleLeaves extends BlockLeaves implements ICustomMappedBlock {
 
     public static final PropertyInteger colorIndex= PropertyInteger.create("colorindex",0,3);
 
