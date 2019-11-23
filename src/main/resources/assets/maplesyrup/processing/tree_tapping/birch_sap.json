@@ -1,0 +1,5 @@
+{
+  "block": "minecraft:log{axis = y, variant = birch}",
+  "fluid":"birch_sap_fluid",
+  "amount": 200
+}

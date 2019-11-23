@@ -109,8 +109,8 @@ public class TileEntityTreeTap extends TileEntity implements ITickable{
         }
 
         IBlockState state2 = this.getWorld().getBlockState(pos2);
-        TappingProcess process=ProcessesHandler.find_treetapping_recipe(this.getWorld().getBlockState(pos2));
-        if(ProcessesHandler.find_treetapping_recipe(this.getWorld().getBlockState(pos2)) == null)
+        TappingProcess process=ProcessesHandler.find_treetapping_recipe(state2);
+        if(process == null)
             return null;
         //TappingProcess process=ProcessesHandler.find_treetapping_recipe(this.getWorld().getBlockState(pos2));
         return process.getFluidStack();

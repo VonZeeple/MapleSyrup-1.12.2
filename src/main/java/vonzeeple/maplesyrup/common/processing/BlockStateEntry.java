@@ -15,7 +15,7 @@ import java.util.Map;
 public class BlockStateEntry {
 
     private Block block;
-    private Map<IProperty, Object> properties = new HashMap<>();
+    private Map<IProperty, Optional> properties = new HashMap<>();
 
     public BlockStateEntry(String block_in){
         if(!GameRegistry.findRegistry(Block.class).containsKey(new ResourceLocation(block_in))){
@@ -44,9 +44,22 @@ public class BlockStateEntry {
             return false;
         }
         Block block = ((IBlockState) object).getBlock();
-        return Block.REGISTRY.getIDForObject(block) == Block.REGISTRY.getIDForObject(this.block);
+        if( Block.REGISTRY.getIDForObject(block) != Block.REGISTRY.getIDForObject(this.block)){
+            return false;
+        }
         //Test of properties
+        Map<IProperty<?>, Comparable<?>> block_properties = ((IBlockState) object).getProperties();
 
+        for( Map.Entry<IProperty, Optional> entry: properties.entrySet()){
+            if(block_properties.containsKey(entry.getKey())){
+                if ( entry.getValue().get() != block_properties.get(entry.getKey())){
+                        return false;
+
+                }
+            }
+        }
+
+        return true;
     }
 
 }
