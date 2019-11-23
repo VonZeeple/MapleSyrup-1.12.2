@@ -26,8 +26,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import vonzeeple.maplesyrup.client.particles.ParticleSap;
 import vonzeeple.maplesyrup.common.blocks.BlockTreeTap;
+import vonzeeple.maplesyrup.common.processing.ProcessesHandler;
+import vonzeeple.maplesyrup.common.processing.TappingProcess;
 import vonzeeple.maplesyrup.utils.ItemHandlerTreeTap;
-import vonzeeple.maplesyrup.common.processing.TappableBlockHandler;
 
 import java.util.Random;
 
@@ -107,12 +108,12 @@ public class TileEntityTreeTap extends TileEntity implements ITickable{
                 pos2=pos.west();
         }
 
-        if (TappableBlockHandler.isTappable(this.getWorld().getBlockState(pos2))){
-            return TappableBlockHandler.getTappableSap(this.getWorld().getBlockState(pos2));
-        }
-        else{
+        IBlockState state2 = this.getWorld().getBlockState(pos2);
+        TappingProcess process=ProcessesHandler.find_treetapping_recipe(this.getWorld().getBlockState(pos2));
+        if(ProcessesHandler.find_treetapping_recipe(this.getWorld().getBlockState(pos2)) == null)
             return null;
-        }
+        //TappingProcess process=ProcessesHandler.find_treetapping_recipe(this.getWorld().getBlockState(pos2));
+        return process.getFluidStack();
 
     }
     @SideOnly(Side.CLIENT)

@@ -21,6 +21,16 @@ public class ProcessesHandler {
     private ProcessesHandler(){
     }
 
+    public static TappingProcess find_treetapping_recipe( Object object){
+        IForgeRegistry<TappingProcess> registry = GameRegistry.findRegistry(TappingProcess.class);
+        for(Map.Entry<ResourceLocation,TappingProcess> entry : registry.getEntries()){
+            if(entry.getValue().matches(object)){
+                return entry.getValue();
+            }
+        }
+        return null;
+    }
+
     public static EvaporationProcess find_evaporation_recipe( Fluid fluid){
         IForgeRegistry<EvaporationProcess> registry = GameRegistry.findRegistry(EvaporationProcess.class);
         for(Map.Entry<ResourceLocation,EvaporationProcess> entry : registry.getEntries()){
@@ -65,8 +75,8 @@ public class ProcessesHandler {
     public void Init(){
         ProcessLoader evapProcessLoader = new ProcessLoader("/processing/evaporator",UserEvaporationProcess.class);
         evapProcessLoader.registerProcesses();
-        //ProcessLoader tappingProcessLoader = new ProcessLoader("/processing/tree_tapping",UserTreeTapingProcess.class);
-        //tappingProcessLoader.registerProcesses();
+        ProcessLoader tappingProcessLoader = new ProcessLoader("/processing/tree_tapping",UserTreeTapingProcess.class);
+        tappingProcessLoader.registerProcesses();
     }
 
     public void PostInit(){

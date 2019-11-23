@@ -35,7 +35,8 @@ public class UserEvaporationProcess implements IUserProcess {
         this.materialName = data_in.get("materialName");
     }
 
-    public EvaporationProcess get_process(){
+    @Override
+    public  EvaporationProcess getProcess(){
         return new EvaporationProcess(FluidRegistry.getFluid(this.inputFluid), FluidRegistry.getFluid(this.outputFluid), this.ratio, this.materialName, this.endConcentration);
     }
 

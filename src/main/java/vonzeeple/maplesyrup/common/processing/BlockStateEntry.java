@@ -15,17 +15,19 @@ import java.util.Map;
 public class BlockStateEntry {
 
     private Block block;
-    private Map<IProperty, Object> properties;
+    private Map<IProperty, Object> properties = new HashMap<>();
 
-
-
-    public BlockStateEntry(String block_in, HashMap<String,String> properties_in ){
+    public BlockStateEntry(String block_in){
         if(!GameRegistry.findRegistry(Block.class).containsKey(new ResourceLocation(block_in))){
             return;
         }
-        Block block = GameRegistry.findRegistry(Block.class).getValue(new ResourceLocation(block_in));
-        BlockStateContainer blockStateCont = block.getBlockState();
+        block = GameRegistry.findRegistry(Block.class).getValue(new ResourceLocation(block_in));
+    }
 
+    public BlockStateEntry(String block_in, HashMap<String,String> properties_in ){
+        this(block_in);
+
+        BlockStateContainer blockStateCont = block.getBlockState();
         for(String s : properties_in.keySet()){
             IProperty prop = blockStateCont.getProperty(s);
             if(prop != null){
@@ -38,15 +40,13 @@ public class BlockStateEntry {
     }
 
     public boolean test(Object object){
-        if(!(object instanceof Block || object instanceof IBlockState)){
+        if(!(object instanceof IBlockState)){
             return false;
         }
-        if (! (Block.REGISTRY.getIDForObject((Block)object) == Block.REGISTRY.getIDForObject(block))){
-            return false;
-        }
+        Block block = ((IBlockState) object).getBlock();
+        return Block.REGISTRY.getIDForObject(block) == Block.REGISTRY.getIDForObject(this.block);
         //Test of properties
 
-        return false;
     }
 
 }

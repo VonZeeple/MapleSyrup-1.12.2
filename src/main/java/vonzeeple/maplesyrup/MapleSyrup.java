@@ -1,9 +1,6 @@
 package vonzeeple.maplesyrup;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLog;
-import net.minecraft.block.BlockOldLog;
-import net.minecraft.block.BlockPlanks;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -34,12 +31,10 @@ import org.apache.logging.log4j.Logger;
 import vonzeeple.maplesyrup.client.IProxy;
 import vonzeeple.maplesyrup.client.gui.GuiProxy;
 import vonzeeple.maplesyrup.common.Content;
-import vonzeeple.maplesyrup.common.CommonProxy;
 import vonzeeple.maplesyrup.common.blocks.*;
 import vonzeeple.maplesyrup.common.items.*;
 import vonzeeple.maplesyrup.common.processing.EvaporationProcess;
 import vonzeeple.maplesyrup.common.processing.ProcessesHandler;
-import vonzeeple.maplesyrup.common.processing.TappableBlockHandler;
 import vonzeeple.maplesyrup.common.processing.TappingProcess;
 import vonzeeple.maplesyrup.common.tileEntities.TileEntityEvaporator;
 import vonzeeple.maplesyrup.common.tileEntities.TileEntityTreeTap;
@@ -163,15 +158,27 @@ public class MapleSyrup
         event.getRegistry().register(new ItemMapleSyrupBottle());
         event.getRegistry().register(new ItemHydrometer());
         event.getRegistry().register(new ItemSugarBucket());
-        event.getRegistry().register(new ItemBlock(Content.blockEvaporator).setRegistryName(Content.blockEvaporator.getRegistryName()));
-        event.getRegistry().register(new ItemBlock(Content.blockMapleLog).setRegistryName(Content.blockMapleLog.getRegistryName()));
-        event.getRegistry().register(new ItemBlock(Content.blockTreeTap).setRegistryName(Content.blockTreeTap.getRegistryName()));
-        event.getRegistry().register(new ItemMapleLeaves(Content.blockMapleLeaves).setRegistryName(Content.blockMapleLeaves.getRegistryName()));
-        ItemBlock itemBlockMapleSapling = new ItemBlock(Content.blockMapleSapling) {
+        event.getRegistry().register(getItemBlock(new ResourceLocation("maplesyrup:evaporator")));
+        event.getRegistry().register(getItemBlock(new ResourceLocation("maplesyrup:maple_log")));
+        event.getRegistry().register(getItemBlock(new ResourceLocation("maplesyrup:tree_tap")));
+        event.getRegistry().register(getItemBlock(new ResourceLocation("maplesyrup:maple_leaves")));
+
+        event.getRegistry().register(getFuelItemBlock(new ResourceLocation("maplesyrup:maple_sapling"),100));
+
+    }
+
+    private static Item getFuelItemBlock(ResourceLocation block_location, Integer burnTime){
+        Block block = Block.REGISTRY.getObject(block_location);
+        if(block == Blocks.AIR){return null;}
+        return new ItemBlock(block) {
             @Override
-            public int getItemBurnTime(ItemStack itemStack) { return 100; }
-        };
-        event.getRegistry().register(itemBlockMapleSapling.setRegistryName(Content.blockMapleSapling.getRegistryName()));
+            public int getItemBurnTime(ItemStack itemStack) { return burnTime; }
+        }.setRegistryName(block.getRegistryName());
+    }
+    private static Item getItemBlock(ResourceLocation block_location){
+        Block block = Block.REGISTRY.getObject(block_location);
+        if(block == Blocks.AIR){return null;}
+        return new ItemBlock(block).setRegistryName(block.getRegistryName());
     }
 
     public static CreativeTabs creativeTab = new CreativeTabs(MODID)

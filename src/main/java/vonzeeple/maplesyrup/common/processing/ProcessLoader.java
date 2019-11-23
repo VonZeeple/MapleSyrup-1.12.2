@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.commons.io.FilenameUtils;
+import vonzeeple.maplesyrup.MapleSyrup;
 import vonzeeple.maplesyrup.utils.JsonParser;
 import vonzeeple.maplesyrup.utils.StringUtils;
 
@@ -59,12 +60,13 @@ public class ProcessLoader {
     private void register_process_from_json(JsonElement json, ResourceLocation location){
 
         IUserProcess process = new Gson().fromJson(json, processClass);
-        if(process instanceof UserEvaporationProcess){
-            EvaporationProcess proc = ((UserEvaporationProcess) process).get_process();
-            if(!proc.isValid()){return;}
-            proc.setRegistryName(location);
-            GameRegistry.findRegistry(EvaporationProcess.class).register((EvaporationProcess) proc);
-        }
+        MapleSyrup.logger.info(location);
+        IProcess proc = process.getProcess();
+        if(proc == null){return;}
+        if(!proc.isValid()){return;}
+        proc.setRegistryName(location);
+        GameRegistry.findRegistry(proc.getClass()).register(proc);
+
     }
 
 }

@@ -7,7 +7,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
-public class EvaporationProcess implements IForgeRegistryEntry<EvaporationProcess> {
+public class EvaporationProcess implements IProcess<EvaporationProcess> {
     Fluid inputFluid;
     Fluid outputFluid;
     float ratio;
