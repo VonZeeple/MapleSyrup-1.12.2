@@ -53,7 +53,7 @@ public class MapleSyrup
     @Mod.Instance
     public static MapleSyrup instance = new MapleSyrup();
 
-    @SidedProxy(clientSide = "vonzeeple.maplesyrup.client.ClientProxy", serverSide = "vonzeeple.maplesyrup.common.CommonProxy")
+    @SidedProxy(clientSide = "vonzeeple.maplesyrup.client.ClientProxy", serverSide = "vonzeeple.maplesyrup.server.ServerProxy")
     public static IProxy proxy;
 
     //Static initializer
@@ -65,7 +65,7 @@ public class MapleSyrup
     public void preInit(FMLPreInitializationEvent event)
     {
         logger = event.getModLog();
-        //MapleSyrup.proxy.preInit(event);
+
         //Maple Sap
         FluidRegistry.registerFluid(Content.fluidMapleSap);
         FluidRegistry.addBucketForFluid(Content.fluidMapleSap);
@@ -84,17 +84,10 @@ public class MapleSyrup
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-        //MapleSyrup.proxy.init(event);
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiProxy());
 
         GameRegistry.addSmelting(new ItemStack(Content.itemPancakeMix),new ItemStack(Content.itemPancakes) ,0f);
         GameRegistry.addSmelting(FluidUtil.getFilledBucket(new FluidStack(Content.fluidMapleSyrup, Fluid.BUCKET_VOLUME)),new ItemStack(Content.itemSugarBucket) ,0f);
-
-
-
-        //TappableBlockHandler.registerTappableBlock(Content.blockMapleLog.getDefaultState().withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.Y), new FluidStack(Content.fluidMapleSap,200));
-        //TappableBlockHandler.registerTappableBlock(Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH), new FluidStack(Content.fluidMapleSap,200));
-        //TappableBlockHandler.registerTappableBlock(Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.OAK), new FluidStack(FluidRegistry.WATER,200));
 
         addPattern(MapleSyrup.MODID.toLowerCase()+"_banner","vz_map",new ItemStack(Content.itemMapleSyrupBottle,1));
 
@@ -120,8 +113,10 @@ public class MapleSyrup
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-        //MapleSyrup.proxy.postInit(event);
+
         registerOres();
+        MapleSyrup.logger.info(GameRegistry.findRegistry( EvaporationProcess.class).getEntries());
+        MapleSyrup.logger.info(GameRegistry.findRegistry( TappingProcess.class).getEntries());
     }
 
     @SubscribeEvent
@@ -149,6 +144,8 @@ public class MapleSyrup
         GameRegistry.registerTileEntity(TileEntityTreeTap.class, new ResourceLocation("maplesyrup:tileTreeTap"));
         event.getRegistry().register(new BlockFluid(Content.fluidMapleSap,"maple_sap_fluid"));
         event.getRegistry().register(new BlockFluid(Content.fluidMapleSyrup,"maple_syrup_fluid"));
+        event.getRegistry().register(new BlockFluid(Content.fluidBirchSap,"birch_sap_fluid"));
+        event.getRegistry().register(new BlockFluid(Content.fluidBirchSyrup,"birch_syrup_fluid"));
     }
 
     @SubscribeEvent

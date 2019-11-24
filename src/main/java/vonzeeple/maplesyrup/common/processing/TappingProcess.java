@@ -50,6 +50,8 @@ public class TappingProcess implements IProcess<TappingProcess> {
 
     @Override
     public boolean isValid(){
-        return true;
+        if(blockstate == null){return false;}
+        if(fluid == null){return false;}
+        return FluidRegistry.getFluid(fluid) != null;
     }
 }

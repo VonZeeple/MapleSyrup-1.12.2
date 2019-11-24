@@ -13,7 +13,6 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
@@ -21,7 +20,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import vonzeeple.maplesyrup.MapleSyrup;
-import vonzeeple.maplesyrup.api.IitemHydrometer;
 import vonzeeple.maplesyrup.client.particles.ParticleSteam;
 import vonzeeple.maplesyrup.common.Content;
 import vonzeeple.maplesyrup.common.tileEntities.TileEntityEvaporator;
@@ -87,19 +85,6 @@ public class BlockEvaporator extends Block {
             return false;
         }
 
-
-
-
-
-
-        if(player.getHeldItem(hand).getItem() instanceof IitemHydrometer){
-            //send message client side
-            if (world.isRemote) {
-                player.sendMessage(new TextComponentString(((TileEntityEvaporator)te).getConcentration()));
-                world.playSound((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
-            }
-            return true;
-        }
         if (FluidUtil.interactWithFluidHandler( player,  hand, world,  pos,  side)) {
             world.getTileEntity(pos).markDirty();
             if(((TileEntityEvaporator) world.getTileEntity(pos)).getFluidStack() != null){

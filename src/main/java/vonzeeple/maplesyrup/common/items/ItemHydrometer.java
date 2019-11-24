@@ -1,6 +1,5 @@
 package vonzeeple.maplesyrup.common.items;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import vonzeeple.maplesyrup.MapleSyrup;
 import vonzeeple.maplesyrup.api.IitemHydrometer;

@@ -26,7 +26,7 @@ public class BlockStateEntry {
 
     public BlockStateEntry(String block_in, HashMap<String,String> properties_in ){
         this(block_in);
-
+        if(block == null){return;}
         BlockStateContainer blockStateCont = block.getBlockState();
         for(String s : properties_in.keySet()){
             IProperty prop = blockStateCont.getProperty(s);
