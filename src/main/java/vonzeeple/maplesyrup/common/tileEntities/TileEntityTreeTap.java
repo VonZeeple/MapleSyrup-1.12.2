@@ -20,8 +20,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import vonzeeple.maplesyrup.client.particles.ParticleSap;
 import vonzeeple.maplesyrup.common.blocks.BlockTreeTap;
@@ -44,8 +42,8 @@ public class TileEntityTreeTap extends TileEntity {
         }
     };
 
-    @SideOnly(Side.CLIENT)
     public void displayUpdate(World world, IBlockState stateIn, BlockPos pos, Random rand){
+        if(!world.isRemote){return;}
         if (rand.nextDouble() < 0.1D) {
             FluidStack fluidstack = this.checkTapping();
             if (fluidstack != null) {
@@ -113,9 +111,10 @@ public class TileEntityTreeTap extends TileEntity {
         return process.getFluidStack();
 
     }
-    @SideOnly(Side.CLIENT)
+
     private void spawnParticles(World worldIn, BlockPos pos, IBlockState state,FluidStack fluidstack)
     {
+        if(!world.isRemote){return;}
         double x1;
         double z1;
         //Maybe check if the block is TreeTap
@@ -147,7 +146,7 @@ public class TileEntityTreeTap extends TileEntity {
         ResourceLocation resource=fluidstack.getFluid().getStill();
         ParticleSap newEffect = new ParticleSap(worldIn, xpos, ypos, zpos,resource);
         Minecraft.getMinecraft().effectRenderer.addEffect(newEffect);
-        //worldIn.playSound((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, SoundEvents.UI_BUTTON_CLICK, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+        //worldIn.playSound((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, SoundEvents.ENTITY_VEX_HURT, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
 
     }
 

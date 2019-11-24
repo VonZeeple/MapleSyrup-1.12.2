@@ -1,8 +1,6 @@
 package vonzeeple.maplesyrup.common.blocks;
 
 
-import com.sun.istack.internal.NotNull;
-import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -10,13 +8,11 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -178,7 +174,6 @@ public class BlockEvaporator extends Block {
                     double xpos = (double) pos.getX() + rand.nextDouble();
                     double ypos = (double) pos.getY() + 1;
                     double zpos = (double) pos.getZ() + rand.nextDouble();
-                    //worldIn.spawnParticle(EnumParticleTypes.CLOUD, xpos, ypos, zpos, 0.0D, 0.0D, 0.0D, new int[0]);
                     ParticleSteam newEffect = new ParticleSteam(world, xpos, ypos, zpos);
                     Minecraft.getMinecraft().effectRenderer.addEffect(newEffect);
                 }
