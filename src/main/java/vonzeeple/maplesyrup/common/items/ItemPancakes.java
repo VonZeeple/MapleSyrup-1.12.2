@@ -15,8 +15,8 @@ public class ItemPancakes extends ItemFood {
 
 
     private String[] subNames={"pancakes","pancakes_with_syrup", "pancakes_with_bacon", "candied_bacon","maple_biscuits"};
-    private float[] satModifier={0.6f,0.6f,0.6f,0.6f};
-    private int[] healAmount={1,2,3,4};
+    private float[] satModifier={6f,7f,20f,15f,2f};
+    private int[] healAmount={5,6,8,8,2};
 
     public ItemPancakes(){
         super(0,false);

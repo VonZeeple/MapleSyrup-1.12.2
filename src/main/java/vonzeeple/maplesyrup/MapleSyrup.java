@@ -31,6 +31,7 @@ import org.apache.logging.log4j.Logger;
 import vonzeeple.maplesyrup.client.IProxy;
 import vonzeeple.maplesyrup.client.gui.GuiProxy;
 import vonzeeple.maplesyrup.common.Content;
+import vonzeeple.maplesyrup.common.Fluids;
 import vonzeeple.maplesyrup.common.blocks.*;
 import vonzeeple.maplesyrup.common.items.*;
 import vonzeeple.maplesyrup.common.processing.EvaporationProcess;
@@ -67,15 +68,15 @@ public class MapleSyrup
         logger = event.getModLog();
 
         //Maple Sap
-        FluidRegistry.registerFluid(Content.fluidMapleSap);
-        FluidRegistry.addBucketForFluid(Content.fluidMapleSap);
-        FluidRegistry.registerFluid(Content.fluidMapleSyrup);
-        FluidRegistry.addBucketForFluid(Content.fluidMapleSyrup);
+        FluidRegistry.registerFluid(Fluids.fluidMapleSap);
+        FluidRegistry.addBucketForFluid(Fluids.fluidMapleSap);
+        FluidRegistry.registerFluid(Fluids.fluidMapleSyrup);
+        FluidRegistry.addBucketForFluid(Fluids.fluidMapleSyrup);
 
-        FluidRegistry.registerFluid(Content.fluidBirchSap);
-        FluidRegistry.addBucketForFluid(Content.fluidBirchSap);
-        FluidRegistry.registerFluid(Content.fluidBirchSyrup);
-        FluidRegistry.addBucketForFluid(Content.fluidBirchSyrup);
+        FluidRegistry.registerFluid(Fluids.fluidBirchSap);
+        FluidRegistry.addBucketForFluid(Fluids.fluidBirchSap);
+        FluidRegistry.registerFluid(Fluids.fluidBirchSyrup);
+        FluidRegistry.addBucketForFluid(Fluids.fluidBirchSyrup);
 
         ProcessesHandler.get_instance().PreInit();
 
@@ -86,14 +87,23 @@ public class MapleSyrup
     {
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiProxy());
 
-        GameRegistry.addSmelting(new ItemStack(Content.itemPancakeMix),new ItemStack(Content.itemPancakes) ,0f);
-        GameRegistry.addSmelting(FluidUtil.getFilledBucket(new FluidStack(Content.fluidMapleSyrup, Fluid.BUCKET_VOLUME)),new ItemStack(Content.itemSugarBucket) ,0f);
+        Item itemPancakeMix = Item.REGISTRY.getObject(new ResourceLocation("maplesyrup:pancakemix"));
+        Item itemPancakes = Item.REGISTRY.getObject(new ResourceLocation("maplesyrup:pancakes"));
+        //Pancakes baking:
+        GameRegistry.addSmelting(new ItemStack(itemPancakeMix),new ItemStack(itemPancakes,1,0) ,0f);
+        //Sugar from syrup
+        Item sugarBucket = Item.REGISTRY.getObject(new ResourceLocation("maplesyrup:sugarBucket"));
+        GameRegistry.addSmelting(FluidUtil.getFilledBucket(new FluidStack(Fluids.fluidMapleSyrup, Fluid.BUCKET_VOLUME)),new ItemStack(sugarBucket) ,0f);
 
-        addPattern(MapleSyrup.MODID.toLowerCase()+"_banner","vz_map",new ItemStack(Content.itemMapleSyrupBottle,1));
+        //banner pattern
+        Item mapleBottle = Item.REGISTRY.getObject(new ResourceLocation("maplesyrup:bottle_maplesyrup"));
+        addPattern(MapleSyrup.MODID.toLowerCase()+"_banner","vz_map",new ItemStack(mapleBottle,1));
 
         ProcessesHandler.get_instance().Init();
 
     }
+
+
 
     private static void addPattern(String name, String id, ItemStack craftingItem)
     {
@@ -101,7 +111,6 @@ public class MapleSyrup
     }
 
     private static void registerOres(){
-
         OreDictionary.registerOre("listAllsugar",Items.SUGAR);// From Harvestcraft
         OreDictionary.registerOre("listAllsugar",Content.itemSugarBucket);
         OreDictionary.registerOre("listAllegg",Items.EGG);
@@ -113,7 +122,6 @@ public class MapleSyrup
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-
         registerOres();
         MapleSyrup.logger.info(GameRegistry.findRegistry( EvaporationProcess.class).getEntries());
         MapleSyrup.logger.info(GameRegistry.findRegistry( TappingProcess.class).getEntries());
@@ -142,10 +150,10 @@ public class MapleSyrup
         event.getRegistry().register(new BlockMapleLeaves());
         GameRegistry.registerTileEntity(TileEntityEvaporator.class, new ResourceLocation("maplesyrup:tileEvaporator"));
         GameRegistry.registerTileEntity(TileEntityTreeTap.class, new ResourceLocation("maplesyrup:tileTreeTap"));
-        event.getRegistry().register(new BlockFluid(Content.fluidMapleSap,"maple_sap_fluid"));
-        event.getRegistry().register(new BlockFluid(Content.fluidMapleSyrup,"maple_syrup_fluid"));
-        event.getRegistry().register(new BlockFluid(Content.fluidBirchSap,"birch_sap_fluid"));
-        event.getRegistry().register(new BlockFluid(Content.fluidBirchSyrup,"birch_syrup_fluid"));
+        event.getRegistry().register(new BlockFluid(Fluids.fluidMapleSap,"maple_sap_fluid"));
+        event.getRegistry().register(new BlockFluid(Fluids.fluidMapleSyrup,"maple_syrup_fluid"));
+        event.getRegistry().register(new BlockFluid(Fluids.fluidBirchSap,"birch_sap_fluid"));
+        event.getRegistry().register(new BlockFluid(Fluids.fluidBirchSyrup,"birch_syrup_fluid"));
     }
 
     @SubscribeEvent
@@ -155,6 +163,7 @@ public class MapleSyrup
         event.getRegistry().register(new ItemMapleSyrupBottle());
         event.getRegistry().register(new ItemHydrometer());
         event.getRegistry().register(new ItemSugarBucket());
+
         event.getRegistry().register(getItemBlock(new ResourceLocation("maplesyrup:evaporator")));
         event.getRegistry().register(getItemBlock(new ResourceLocation("maplesyrup:maple_log")));
         event.getRegistry().register(getItemBlock(new ResourceLocation("maplesyrup:tree_tap")));
@@ -180,6 +189,7 @@ public class MapleSyrup
 
     public static CreativeTabs creativeTab = new CreativeTabs(MODID)
     {
+        Item mapleBottle = Item.REGISTRY.getObject(new ResourceLocation("maplesyrup:bottle_maplesyrup"));
         @Override
         public ItemStack getTabIconItem()
         {
@@ -188,7 +198,7 @@ public class MapleSyrup
         @Override
         public ItemStack getIconItemStack()
         {
-            return new ItemStack(Content.blockEvaporator,1,0);
+            return new ItemStack(mapleBottle,1,0);
         }
     };
 

@@ -18,8 +18,7 @@ tile.evaporator.name=Evaporator
 tile.large_evaporator.name=Evaporator
 
 #GUI
-gui.evaporator.title=Evaporator GUI
-
+gui.evaporator.title=Evaporator
 
 #Items
 item.pancakes.name=Pancakes
@@ -31,6 +30,7 @@ item.maple_biscuits.name=Maple biscuits
 item.item_hydrometer.name=Hydrometer
 item.bottle_maplesyrup.name=Maple Syrup Bottle
 item.sugarbucket.name=Sugar in bucket
+item.hydrometer.name=Hydrometer
 
 #Banners
 item.banner.maplesyrup_banner.black=Black Maple Leaf

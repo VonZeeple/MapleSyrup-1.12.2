@@ -1,11 +1,10 @@
 package vonzeeple.maplesyrup.client;
 
-
-
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -17,9 +16,11 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import scala.util.control.TailCalls;
 import vonzeeple.maplesyrup.MapleSyrup;
 import vonzeeple.maplesyrup.client.render.TESRtreetap;
 import vonzeeple.maplesyrup.client.render.TESRevaporator;
+import vonzeeple.maplesyrup.common.Content;
 import vonzeeple.maplesyrup.common.blocks.ICustomMappedBlock;
 import vonzeeple.maplesyrup.common.items.ItemPancakes;
 import vonzeeple.maplesyrup.common.tileEntities.TileEntityEvaporator;
@@ -42,66 +43,58 @@ public class ClientProxy implements IProxy{
     public void postInit(FMLPostInitializationEvent e){}
 
 
-
     @SubscribeEvent
     public static void registerRenders(ModelRegistryEvent event) {
         OBJLoader.INSTANCE.addDomain(MapleSyrup.MODID);
 
-        registerBlockRender(new ResourceLocation("maplesyrup:maple_log"));
-        registerBlockRender(new ResourceLocation("maplesyrup:evaporator"));
-        registerBlockRender(new ResourceLocation("maplesyrup:maple_sapling"));
-        registerBlockRender(new ResourceLocation("maplesyrup:tree_tap"));
-        registerRenderLeaves(new ResourceLocation("maplesyrup:maple_leaves"));
+        registerItemBlockRender(Content.itemBlockMapleLog);
+        registerItemBlockRender(Content.itemBlockEvaporator);
+        registerItemBlockRender(Content.itemBlockMapleSapling);
+        registerItemBlockRender(Content.itemBlockTreeTap);
+        registerItemLeavesRender(Content.itemBlockMapleLeaves);
 
-        registerItemRender(new ResourceLocation("maplesyrup:pancakemix"));
-        registerItemRender(new ResourceLocation("maplesyrup:bottle_maplesyrup"));
-        registerItemRender(new ResourceLocation("maplesyrup:hydrometer"));
-        registerItemRender(new ResourceLocation("maplesyrup:sugarbucket"));
-
-        registerRender_food(new ResourceLocation("maplesyrup:pancakes"));
+        registerItemRender(Content.itemPancakeMix);
+        registerItemRender(Content.itemMapleSyrupBottle);
+        registerItemRender(Content.itemHydrometer);
+        registerItemRender(Content.itemSugarBucket);
+        registerItemFoodRender(Content.itemPancakes);
 
         ClientRegistry.bindTileEntitySpecialRenderer( TileEntityEvaporator.class , new TESRevaporator());
         ClientRegistry.bindTileEntitySpecialRenderer( TileEntityTreeTap.class , new TESRtreetap());
 
-        setCustomStateMapper(new ResourceLocation("maplesyrup:maple_leaves"));
-        setCustomStateMapper(new ResourceLocation("maplesyrup:maple_syrup_fluid"));
-        setCustomStateMapper(new ResourceLocation("maplesyrup:maple_sap_fluid"));
-        setCustomStateMapper(new ResourceLocation("maplesyrup:birch_syrup_fluid"));
-        setCustomStateMapper(new ResourceLocation("maplesyrup:birch_sap_fluid"));
+        setCustomStateMapper(Content.blockMapleLeaves);
+        setCustomStateMapper(Content.blockFluidMapleSap);
+        setCustomStateMapper(Content.blockFluidMapleSyrup);
+        setCustomStateMapper(Content.blockFluidBirchSap);
+        setCustomStateMapper(Content.blockFluidBirchSyrup);
 
     }
 
-    private static void setCustomStateMapper(ResourceLocation location){
-        Block block = Block.REGISTRY.getObject(location);
+    private static void setCustomStateMapper(Block block){
         if(! (block instanceof ICustomMappedBlock)){return;}
         ModelLoader.setCustomStateMapper(block, ((ICustomMappedBlock)block).getCustomStateMapper());
     }
-
-    private static void registerBlockRender(ResourceLocation location){
-        Block block = Block.REGISTRY.getObject(location);
-        if( block == Blocks.AIR){return;}
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation( Item.getItemFromBlock(block).getRegistryName(), "inventory"));
+    private static void registerItemBlockRender(ItemBlock itemBlock){
+        ModelLoader.setCustomModelResourceLocation(itemBlock, 0, new ModelResourceLocation( itemBlock.getRegistryName(), "inventory"));
     }
-    private static void registerItemRender(ResourceLocation location){
-        Item item = Item.REGISTRY.getObject(location);
-        if(item == null){return;}
+
+    private static void registerItemRender(Item item){
         ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation( item.getRegistryName(), "inventory"));
     }
 
-    private static void registerRenderLeaves(ResourceLocation location) {
-        Block block = Block.REGISTRY.getObject(location);
-        if( block == Blocks.AIR){return;}
+
+    private static void registerItemLeavesRender(ItemBlock itemBlock) {
         for (int i=0;i<4;i++) {
-            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), i, new ModelResourceLocation(Item.getItemFromBlock(block).getRegistryName(), "colorindex="+i));
+            ModelLoader.setCustomModelResourceLocation(itemBlock, i, new ModelResourceLocation(itemBlock.getRegistryName(), "colorindex="+i));
         }
     }
 
-    private static void registerRender_food(ResourceLocation location) {
-        Item item = Item.REGISTRY.getObject(location);
+    private static void registerItemFoodRender(Item item) {
         if(!(item instanceof ItemPancakes)){return;}
         String[] names= ((ItemPancakes)item).getSubNames();
         for (int i = 0; i < names.length; i++) {
             ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(MapleSyrup.MODID+":"+names[i], "inventory"));
         }
     }
+
 }

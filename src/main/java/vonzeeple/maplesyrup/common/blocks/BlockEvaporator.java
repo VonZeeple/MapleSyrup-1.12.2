@@ -48,11 +48,13 @@ public class BlockEvaporator extends Block {
     public BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, active);
     }
-    @Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
-        return Item.getItemFromBlock(Content.blockEvaporator);
-    }
+
+    //@Override
+    //public Item getItemDropped(IBlockState state, Random rand, int fortune)
+    //{
+    //    return Item.getItemFromBlock(Content.blockEvaporator);
+    //}
+
     @Override
     public boolean hasTileEntity(IBlockState state)
     {
