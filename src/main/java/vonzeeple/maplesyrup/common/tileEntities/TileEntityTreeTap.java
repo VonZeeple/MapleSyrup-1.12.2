@@ -11,7 +11,6 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -32,7 +31,7 @@ import vonzeeple.maplesyrup.utils.ItemHandlerTreeTap;
 
 import java.util.Random;
 
-public class TileEntityTreeTap extends TileEntity implements ITickable{
+public class TileEntityTreeTap extends TileEntity {
     private FluidTank tank = new FluidTank(Fluid.BUCKET_VOLUME);
     private int tickCounter=0;
 
@@ -45,35 +44,34 @@ public class TileEntityTreeTap extends TileEntity implements ITickable{
         }
     };
 
+    @SideOnly(Side.CLIENT)
+    public void displayUpdate(World world, IBlockState stateIn, BlockPos pos, Random rand){
+        if (rand.nextDouble() < 0.1D) {
+            FluidStack fluidstack = this.checkTapping();
+            if (fluidstack != null) {
+                this.spawnParticles(this.getWorld(), pos, this.getWorld().getBlockState(pos), fluidstack);
+            }
+        }
+    }
+
     public void update(){
-        tickCounter++;
-        if(tickCounter>80){
-            Random rand = new Random();
-            if (rand.nextDouble() < 0.1D) {
-                FluidStack fluidstack=this.checkTapping();
-                if (fluidstack != null) {
+        FluidStack fluidstack=this.checkTapping();
+        if (fluidstack != null) {
 
-                    //Only server side
-                    if (!this.getWorld().isRemote) {
+            //Only server side
+            if (!this.getWorld().isRemote) {
 
-                        if (world.getBlockState(getPos()).getActualState(world,getPos()).getValue(BlockTreeTap.BUCKET) && tank.getFluidAmount() < tank.getCapacity()) {
-                            tank.fillInternal(this.checkTapping(), true);
-                            this.world.notifyBlockUpdate(getPos(), world.getBlockState(getPos()), world.getBlockState(getPos()), 8);
-                            this.markDirty();
-                        }
-                    }
-                    //Only client side
-                    if (this.getWorld().isRemote) {
-
-                        this.spawnParticles(this.getWorld(), pos, this.getWorld().getBlockState(pos),fluidstack);
-                    }
-                    tickCounter = 1;
+                if (world.getBlockState(getPos()).getActualState(world,getPos()).getValue(BlockTreeTap.BUCKET) && tank.getFluidAmount() < tank.getCapacity()) {
+                    tank.fillInternal(this.checkTapping(), true);
+                    this.world.notifyBlockUpdate(getPos(), world.getBlockState(getPos()), world.getBlockState(getPos()), 8);
+                    this.markDirty();
                 }
             }
-
         }
 
     }
+
+
 
     public ItemStack getBucket(){
         return itemStackHandler.getStackInSlot(0);
@@ -112,7 +110,6 @@ public class TileEntityTreeTap extends TileEntity implements ITickable{
         TappingProcess process=ProcessesHandler.find_treetapping_recipe(state2);
         if(process == null)
             return null;
-        //TappingProcess process=ProcessesHandler.find_treetapping_recipe(this.getWorld().getBlockState(pos2));
         return process.getFluidStack();
 
     }

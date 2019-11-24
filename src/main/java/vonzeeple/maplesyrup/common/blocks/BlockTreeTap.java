@@ -24,6 +24,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import vonzeeple.maplesyrup.MapleSyrup;
 import vonzeeple.maplesyrup.common.tileEntities.TileEntityEvaporator;
@@ -53,10 +55,9 @@ public class BlockTreeTap extends Block {
         setUnlocalizedName("tree_tap");
         setRegistryName("maplesyrup:tree_tap");
         this.setDefaultState(this.getDefaultState().withProperty(ISFULL,false).withProperty(BUCKET,false));
-        //this.setTickRandomly(true);
+        this.setTickRandomly(true);
 
     }
-
 
 
     @Override
@@ -138,23 +139,40 @@ public class BlockTreeTap extends Block {
 
 
     @Override
-    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos){
-            this.checkAndDropBlock(world, pos,world.getBlockState(pos));
-    }
-
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
-        this.checkAndDropBlock(worldIn, pos, state);
-    }
-
-    protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state)
-    {
-        if (!this.canBlockStay(worldIn, pos, worldIn.getBlockState(pos).getValue(FACING)))
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos){
+        if (!this.canBlockStay(worldIn, pos, state.getValue(FACING)))
         {
             this.dropBlockAsItem(worldIn, pos, this.getDefaultState(), 0);
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
         }
     }
+
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    {
+        if (worldIn.isRemote){return;}
+        if (!this.canBlockStay(worldIn, pos, state.getValue(FACING)))
+        {
+            this.dropBlockAsItem(worldIn, pos, this.getDefaultState(), 0);
+            worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+        }
+        else
+        {
+            TileEntity entity = worldIn.getTileEntity(pos);
+            if(entity instanceof TileEntityTreeTap){
+                ((TileEntityTreeTap) entity).update();
+            }
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void randomDisplayTick(IBlockState stateIn, World world, BlockPos pos, Random rand)
+    {
+        TileEntity entity = world.getTileEntity(pos);
+        if(entity instanceof TileEntityTreeTap){
+            ((TileEntityTreeTap) entity).displayUpdate(world, stateIn, pos ,rand);
+        }
+    }
+
 
     protected boolean canBlockStay(World worldIn, BlockPos pos, EnumFacing facing)
     {
