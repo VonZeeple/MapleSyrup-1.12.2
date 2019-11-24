@@ -189,7 +189,6 @@ public class MapleSyrup
 
     public static CreativeTabs creativeTab = new CreativeTabs(MODID)
     {
-        Item mapleBottle = Item.REGISTRY.getObject(new ResourceLocation("maplesyrup:bottle_maplesyrup"));
         @Override
         public ItemStack getTabIconItem()
         {
@@ -198,7 +197,7 @@ public class MapleSyrup
         @Override
         public ItemStack getIconItemStack()
         {
-            return new ItemStack(mapleBottle,1,0);
+            return new ItemStack(Content.itemMapleSyrupBottle,1,0);
         }
     };
 

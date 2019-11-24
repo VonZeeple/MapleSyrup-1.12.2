@@ -20,8 +20,6 @@
               "true": {"submodel": "maplesyrup:treetap_bucket.obj"},
               "false": {}
             },
-        	"inventory": [{
-				"transform": "forge:default-block"
-        	}]
+        	"inventory": [{"model": "maplesyrup:item/tree_tap"}]
         }
 }
