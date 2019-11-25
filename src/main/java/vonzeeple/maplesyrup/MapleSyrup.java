@@ -1,6 +1,7 @@
 package vonzeeple.maplesyrup;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLeaves;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -87,17 +88,12 @@ public class MapleSyrup
     {
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiProxy());
 
-        Item itemPancakeMix = Item.REGISTRY.getObject(new ResourceLocation("maplesyrup:pancakemix"));
-        Item itemPancakes = Item.REGISTRY.getObject(new ResourceLocation("maplesyrup:pancakes"));
         //Pancakes baking:
-        GameRegistry.addSmelting(new ItemStack(itemPancakeMix),new ItemStack(itemPancakes,1,0) ,0f);
+        GameRegistry.addSmelting(new ItemStack(Content.itemPancakeMix),new ItemStack(Content.itemPancakes,1,0) ,0f);
         //Sugar from syrup
-        Item sugarBucket = Item.REGISTRY.getObject(new ResourceLocation("maplesyrup:sugarBucket"));
-        GameRegistry.addSmelting(FluidUtil.getFilledBucket(new FluidStack(Fluids.fluidMapleSyrup, Fluid.BUCKET_VOLUME)),new ItemStack(sugarBucket) ,0f);
-
+        GameRegistry.addSmelting(FluidUtil.getFilledBucket(new FluidStack(Fluids.fluidMapleSyrup, Fluid.BUCKET_VOLUME)),new ItemStack(Content.itemSugarBucket) ,0f);
         //banner pattern
-        Item mapleBottle = Item.REGISTRY.getObject(new ResourceLocation("maplesyrup:bottle_maplesyrup"));
-        addPattern(MapleSyrup.MODID.toLowerCase()+"_banner","vz_map",new ItemStack(mapleBottle,1));
+        addPattern(MapleSyrup.MODID.toLowerCase()+"_banner","vz_map",new ItemStack(Content.itemMapleSyrupBottle,1));
 
         ProcessesHandler.get_instance().Init();
 
@@ -167,8 +163,10 @@ public class MapleSyrup
         event.getRegistry().register(getItemBlock(new ResourceLocation("maplesyrup:evaporator")));
         event.getRegistry().register(getItemBlock(new ResourceLocation("maplesyrup:maple_log")));
         event.getRegistry().register(getItemBlock(new ResourceLocation("maplesyrup:tree_tap")));
-        event.getRegistry().register(getItemBlock(new ResourceLocation("maplesyrup:maple_leaves")));
+        //event.getRegistry().register(getItemBlock(new ResourceLocation("maplesyrup:maple_leaves")));
 
+        BlockLeaves block = (BlockLeaves) Block.REGISTRY.getObject(new ResourceLocation("maplesyrup:maple_leaves"));
+        event.getRegistry().register(new ItemMapleLeaves(block));
         event.getRegistry().register(getFuelItemBlock(new ResourceLocation("maplesyrup:maple_sapling"),100));
 
     }
@@ -181,6 +179,8 @@ public class MapleSyrup
             public int getItemBurnTime(ItemStack itemStack) { return burnTime; }
         }.setRegistryName(block.getRegistryName());
     }
+
+
     private static Item getItemBlock(ResourceLocation block_location){
         Block block = Block.REGISTRY.getObject(block_location);
         if(block == Blocks.AIR){return null;}

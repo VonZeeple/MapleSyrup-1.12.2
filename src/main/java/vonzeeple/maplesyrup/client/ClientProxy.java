@@ -21,6 +21,7 @@ import vonzeeple.maplesyrup.MapleSyrup;
 import vonzeeple.maplesyrup.client.render.TESRtreetap;
 import vonzeeple.maplesyrup.client.render.TESRevaporator;
 import vonzeeple.maplesyrup.common.Content;
+import vonzeeple.maplesyrup.common.blocks.BlockMapleLeaves;
 import vonzeeple.maplesyrup.common.blocks.ICustomMappedBlock;
 import vonzeeple.maplesyrup.common.items.ItemPancakes;
 import vonzeeple.maplesyrup.common.tileEntities.TileEntityEvaporator;
@@ -84,8 +85,8 @@ public class ClientProxy implements IProxy{
 
 
     private static void registerItemLeavesRender(ItemBlock itemBlock) {
-        for (int i=0;i<4;i++) {
-            ModelLoader.setCustomModelResourceLocation(itemBlock, i, new ModelResourceLocation(itemBlock.getRegistryName(), "colorindex="+i));
+        for (BlockMapleLeaves.EnumColor color :BlockMapleLeaves.EnumColor.values()) {
+            ModelLoader.setCustomModelResourceLocation(itemBlock, color.getMeta(), new ModelResourceLocation(itemBlock.getRegistryName(), "color="+color.getName()));
         }
     }
 

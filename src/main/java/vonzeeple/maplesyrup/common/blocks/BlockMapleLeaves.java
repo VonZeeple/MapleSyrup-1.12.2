@@ -1,9 +1,11 @@
 package vonzeeple.maplesyrup.common.blocks;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -15,6 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -29,23 +32,55 @@ import java.util.Random;
 
 public class BlockMapleLeaves extends BlockLeaves implements ICustomMappedBlock {
 
-    public static final PropertyInteger colorIndex= PropertyInteger.create("colorindex",0,3);
+    public static final PropertyEnum COLOR = PropertyEnum.create("color", EnumColor.class);
 
-    private String[] subNames={"maple_leaves_red","maple_leaves_orange", "maple_leaves_yellow", "maple_leaves_green"};
     public BlockMapleLeaves(){
         super();
         this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, Boolean.valueOf(true)).withProperty(DECAYABLE, Boolean.valueOf(true)));
         setCreativeTab(MapleSyrup.creativeTab);
         setUnlocalizedName("maple_leaves");
         setRegistryName("maplesyrup:maple_leaves");
-
     }
 
+    public static enum EnumColor implements IStringSerializable {
+        RED(0, "red"),
+        YELLOW(1, "yellow"),
+        ORANGE(2, "orange"),
+        GREEN(3, "green");
 
-    public String getUnlocalizedName( ItemStack stack) {
+        @Override
+        public String toString() {
+            return this.name;
+        }
 
-        return "item."+subNames[stack.getMetadata()%4];
+        public static EnumColor byMetadata(int meta) {
+            return META_LOOKUP[meta % META_LOOKUP.length];
+        }
+
+        public String getName() {
+            return this.name;
+        }
+
+        public int getMeta() {
+            return this.meta;
+        }
+
+        private final int meta;
+        private final String name;
+        private static final EnumColor[] META_LOOKUP = new EnumColor[values().length];
+
+        private EnumColor(int i_meta, String i_name) {
+            this.meta = i_meta;
+            this.name = i_name;
+        }
+
+        static {
+            for (EnumColor colour : values()) {
+                META_LOOKUP[colour.getMeta()] = colour;
+            }
+        }
     }
+
 
     public int getColor(int meta){return meta%4;}
     /**
@@ -53,7 +88,7 @@ public class BlockMapleLeaves extends BlockLeaves implements ICustomMappedBlock 
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(colorIndex, this.getColor(meta)).withProperty(DECAYABLE, Boolean.valueOf((meta & 4) == 0)).withProperty(CHECK_DECAY, Boolean.valueOf((meta & 8) > 0));
+        return this.getDefaultState().withProperty(COLOR, EnumColor.byMetadata(meta)).withProperty(DECAYABLE, Boolean.valueOf((meta & 4) == 0)).withProperty(CHECK_DECAY, Boolean.valueOf((meta & 8) > 0));
     }
 
     /**
@@ -62,14 +97,14 @@ public class BlockMapleLeaves extends BlockLeaves implements ICustomMappedBlock 
     public int getMetaFromState(IBlockState state)
     {
         int i = 0;
-        i = i | state.getValue(colorIndex);
+        i = i | ((EnumColor)state.getValue(COLOR)).getMeta();
 
-        if (!((Boolean)state.getValue(DECAYABLE)).booleanValue())
+        if (!(Boolean) state.getValue(DECAYABLE))
         {
             i |= 4;
         }
 
-        if (((Boolean)state.getValue(CHECK_DECAY)).booleanValue())
+        if ((Boolean) state.getValue(CHECK_DECAY))
         {
             i |= 8;
         }
@@ -117,7 +152,7 @@ public class BlockMapleLeaves extends BlockLeaves implements ICustomMappedBlock 
     @Override
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {colorIndex,CHECK_DECAY, DECAYABLE});
+        return new BlockStateContainer(this, new IProperty[] {COLOR,CHECK_DECAY, DECAYABLE});
     }
     @Override
     public BlockPlanks.EnumType getWoodType(int meta) {
@@ -130,8 +165,6 @@ public class BlockMapleLeaves extends BlockLeaves implements ICustomMappedBlock 
          return NonNullList.withSize(1, new ItemStack(this, 1));
     }
 
-
-
     // use a custom state mapper which will ignore the DECAY property of leaves
     public StateMapperBase getCustomStateMapper(){
         return new StateMapperBase()
@@ -139,7 +172,7 @@ public class BlockMapleLeaves extends BlockLeaves implements ICustomMappedBlock 
             @Override
             protected ModelResourceLocation getModelResourceLocation(IBlockState state)
             {
-                return new ModelResourceLocation(MapleSyrup.MODID.toLowerCase() + ":maple_leaves", "colorindex="+state.getValue(colorIndex));
+                return new ModelResourceLocation(MapleSyrup.MODID.toLowerCase() + ":maple_leaves", "color="+((EnumColor)state.getValue(COLOR)).getName());
             }
         };
     }

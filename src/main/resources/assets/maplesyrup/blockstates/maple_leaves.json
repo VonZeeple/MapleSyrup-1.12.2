@@ -7,10 +7,10 @@
     },
     "variants": {
         "normal": [{}],
-        "colorindex=0":[{"textures": {"all": "maplesyrup:blocks/leaves_maple_red"}}],
-        "colorindex=1":[{"textures": {"all": "maplesyrup:blocks/leaves_maple_yellow"}}],
-        "colorindex=2":[{"textures": {"all": "maplesyrup:blocks/leaves_maple_orange"}}],
-        "colorindex=3":[{"textures": {"all": "maplesyrup:blocks/leaves_maple_green"}}],
+        "color=red":[{"textures": {"all": "maplesyrup:blocks/leaves_maple_red"}}],
+        "color=yellow":[{"textures": {"all": "maplesyrup:blocks/leaves_maple_yellow"}}],
+        "color=orange":[{"textures": {"all": "maplesyrup:blocks/leaves_maple_orange"}}],
+        "color=green":[{"textures": {"all": "maplesyrup:blocks/leaves_maple_green"}}],
         "inventory":[{}]
     }
 }

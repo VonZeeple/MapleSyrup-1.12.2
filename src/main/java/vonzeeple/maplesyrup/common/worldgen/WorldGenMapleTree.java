@@ -28,7 +28,8 @@ public class WorldGenMapleTree extends WorldGenAbstractTree{
     public boolean generate(World worldIn, Random rand, BlockPos position)
     {
 
-        LEAF=Content.blockMapleLeaves.getDefaultState().withProperty(BlockMapleLeaves.colorIndex,rand.nextInt(4));
+        BlockMapleLeaves.EnumColor[] color_values = BlockMapleLeaves.EnumColor.values();
+        LEAF=Content.blockMapleLeaves.getDefaultState().withProperty(BlockMapleLeaves.COLOR, color_values[rand.nextInt(color_values.length)]);
         //Height of the main trunk
         int i = 8 + rand.nextInt(6);
 
