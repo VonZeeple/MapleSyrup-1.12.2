@@ -52,16 +52,16 @@ public class BlockMapleSapling extends BlockBush implements IGrowable {
     }
 
 
-    public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    private void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
         if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(worldIn, rand, pos)) return;
-        WorldGenerator worldgenerator = (WorldGenerator)(rand.nextInt(10) == 0 ? new WorldGenBigTree(true) : new WorldGenTrees(true));
-        //boolean flag = false;
         // remove the sapling
         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 4);
         // try to grow the tree
-        worldgenerator = new WorldGenMapleTree(true, false);
+        BlockMapleLeaves.EnumColor[] color_values = BlockMapleLeaves.EnumColor.values();
+        WorldGenerator worldgenerator = new WorldGenMapleTree(true, false, color_values[rand.nextInt(color_values.length)]);
 
+        //If we can generate the tree, replant the sapling
         if (!worldgenerator.generate(worldIn, rand, pos)){worldIn.setBlockState(pos, Content.blockMapleSapling.getDefaultState(), 4);}
     }
 
