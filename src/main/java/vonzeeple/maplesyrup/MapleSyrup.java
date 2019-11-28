@@ -163,7 +163,6 @@ public class MapleSyrup
         event.getRegistry().register(getItemBlock(new ResourceLocation("maplesyrup:evaporator")));
         event.getRegistry().register(getItemBlock(new ResourceLocation("maplesyrup:maple_log")));
         event.getRegistry().register(getItemBlock(new ResourceLocation("maplesyrup:tree_tap")));
-        //event.getRegistry().register(getItemBlock(new ResourceLocation("maplesyrup:maple_leaves")));
 
         BlockLeaves block = (BlockLeaves) Block.REGISTRY.getObject(new ResourceLocation("maplesyrup:maple_leaves"));
         event.getRegistry().register(new ItemMapleLeaves(block));

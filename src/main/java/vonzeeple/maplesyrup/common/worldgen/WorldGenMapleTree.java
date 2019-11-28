@@ -2,28 +2,26 @@ package vonzeeple.maplesyrup.common.worldgen;
 
 import java.util.Random;
 
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import vonzeeple.maplesyrup.common.Content;
 import vonzeeple.maplesyrup.common.blocks.BlockMapleLeaves;
+import vonzeeple.maplesyrup.common.blocks.BlockMapleLog;
 
 
 public class WorldGenMapleTree extends WorldGenAbstractTree{
 
-    private static final IBlockState LOG = Content.blockMapleLog.getDefaultState();
-    private final boolean useExtraRandomHeight;
-    private BlockMapleLeaves.EnumColor COLOR;
+    private IBlockState LOG;
+    private IBlockState LEAVES;
 
-    public WorldGenMapleTree(boolean notify, boolean useExtraRandomHeightIn, BlockMapleLeaves.EnumColor color)
+    public WorldGenMapleTree(boolean notify,  IBlockState wood_state, IBlockState leaves_state)
     {
         super(notify);
-        this.useExtraRandomHeight = useExtraRandomHeightIn;
-        this.COLOR = color;
+        this.LOG = wood_state;
+        this.LEAVES = leaves_state.withProperty(BlockMapleLeaves.CHECK_DECAY, true);
     }
 
     public boolean placeTrunk(World worldIn, BlockPos pos, int height, boolean doPlace){
@@ -36,44 +34,57 @@ public class WorldGenMapleTree extends WorldGenAbstractTree{
         {
             if (j >= 0 && j < worldIn.getHeight()){
                 blockpos$mutableblockpos.setPos(pos.getX(), j, pos.getZ());
-                if (!this.isReplaceable(worldIn,blockpos$mutableblockpos)) {
-                    flag = false;
-                }else{
-                    if(doPlace){
-                        this.setBlockAndNotifyAdequately(worldIn, blockpos$mutableblockpos, LOG);
-                    }
-                }
+                if(!placeLog(worldIn, EnumFacing.UP, blockpos$mutableblockpos, doPlace)){flag = false;}
+
             }
         }
 
         return flag;
     }
 
-    public boolean placeLeaveNode(World worldIn, BlockPos pos, IBlockState LEAF, boolean doPlace){
-        boolean flag = true;
-        //Place a log at center of node
+    private boolean placeLog(World worldIn, EnumFacing facing, BlockPos pos, boolean doPlace){
         IBlockState state = worldIn.getBlockState(pos);
-        if (state.getBlock().isAir(state, worldIn, pos)) {
+        boolean flag = true;
+        if (state.getBlock().isReplaceable(worldIn,pos) || state.getBlock().isLeaves(state,worldIn,pos) || state.getBlock() instanceof BlockMapleLog) {
             if(doPlace){
-                this.setBlockAndNotifyAdequately(worldIn, pos, LOG);
+                if(!(state.getBlock() instanceof BlockMapleLog)){
+                    this.setBlockAndNotifyAdequately(worldIn, pos, LOG.withProperty(BlockMapleLog.LOG_AXIS, BlockMapleLog.EnumAxis.fromFacingAxis(facing.getAxis())));
+                }
+            }
+        }else{flag =  false;}
+        return flag;
+    }
+
+    private boolean placeLeaves(World worldIn, BlockPos pos, IBlockState leaves_state, boolean doPlace){
+        IBlockState state = worldIn.getBlockState(pos);
+        boolean flag = true;
+        if (state.getBlock().isAir(state, worldIn,pos)) {
+            if(doPlace){
+                this.setBlockAndNotifyAdequately(worldIn, pos, leaves_state);
             }
         }else{flag = false;}
+        return flag;
+    }
+
+    public boolean placeLeaveNode(World worldIn, EnumFacing facing,BlockPos origin, BlockPos pos, IBlockState LEAF, Random rand, boolean doPlace){
+        boolean flag = true;
+        //Place a log at center of node
+        if(!placeLog(worldIn, facing, pos, doPlace)){flag = false;}
+        //place logs between the trunk and the node
 
         int radius = 2;
-        //Place leaves
+        //Place leaves around the node
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
         blockpos$mutableblockpos.setPos(pos);
         for(int x = pos.getX()-radius; x <=pos.getX()+radius; ++x){
             for(int z = pos.getZ()-radius; z <= pos.getZ()+radius; ++z){
                 for(int y = pos.getY()-radius; y<= pos.getY()+radius; ++y){
-                    if(pos.distanceSq(x,y,z) > radius*radius+1){continue;}
+                    double dist = pos.distanceSq(x,y,z);
+                    if(dist > radius*radius+1+rand.nextInt(2)*2){continue;}
                     blockpos$mutableblockpos.setPos(x,y,z);
-                    state = worldIn.getBlockState(blockpos$mutableblockpos);
-                    if (state.getBlock().isAir(state, worldIn, blockpos$mutableblockpos)) {
-                        if(doPlace){
-                            this.setBlockAndNotifyAdequately(worldIn, blockpos$mutableblockpos, LEAF);
-                        }
-                    }else{flag = false;}
+                    IBlockState state = worldIn.getBlockState(blockpos$mutableblockpos);
+                    if(!placeLeaves(worldIn, blockpos$mutableblockpos, LEAF,doPlace)){flag = false;}
+
                 }
             }
         }
@@ -94,14 +105,9 @@ public class WorldGenMapleTree extends WorldGenAbstractTree{
     }
     public boolean generate(World worldIn, Random rand, BlockPos position) {
 
-        IBlockState LEAF = Content.blockMapleLeaves.getDefaultState().withProperty(BlockMapleLeaves.COLOR, this.COLOR);
-
         //Height of the main trunk
-        int height = 8 + rand.nextInt(6);
+        int height = 7 + rand.nextInt(4);
 
-        if (this.useExtraRandomHeight) {
-            height += rand.nextInt(7);
-        }
 
         //Checking if the position of the sapling is valid
         if (!isPositionValid(worldIn, position)) { return false; }
@@ -116,16 +122,17 @@ public class WorldGenMapleTree extends WorldGenAbstractTree{
 
         //We now randomly place leaves nodes along the trunk
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
-        for (int y = position.getY() + 4 + rand.nextInt(2); y <= position.getY() + height-2; ++y) {
+        for (int y = position.getY() + 5 + rand.nextInt(2); y <= position.getY() + height-1; ++y) {
             blockpos$mutableblockpos.setPos(position.getX(),y,position.getZ());
+            int node_radius = y<position.getY()+8 ? 2 : 1;
             for(EnumFacing facing:EnumFacing.HORIZONTALS){
-                if(rand.nextInt(3)< 1){
-                   placeLeaveNode(worldIn,blockpos$mutableblockpos.offset(facing,3), LEAF,true);
+                if(rand.nextInt(4)<3) {
+                    placeLeaveNode(worldIn, facing,blockpos$mutableblockpos ,blockpos$mutableblockpos.offset(facing, rand.nextInt(node_radius+1)), LEAVES, rand, true);
                 }
             }
         }
         //We place a leave node in top
-        placeLeaveNode(worldIn,blockpos$mutableblockpos.offset(EnumFacing.UP,3), LEAF,true);
+        placeLeaveNode(worldIn,EnumFacing.UP,blockpos$mutableblockpos,blockpos$mutableblockpos.offset(EnumFacing.UP,2), LEAVES, rand,true);
 
 
         return true;

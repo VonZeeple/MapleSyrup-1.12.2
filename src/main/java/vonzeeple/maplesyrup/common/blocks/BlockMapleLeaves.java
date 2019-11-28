@@ -21,6 +21,7 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vonzeeple.maplesyrup.MapleSyrup;
@@ -42,6 +43,9 @@ public class BlockMapleLeaves extends BlockLeaves implements ICustomMappedBlock 
         setRegistryName("maplesyrup:maple_leaves");
     }
 
+    public static boolean isReplaceable(World worldIn , BlockPos pos){
+        return true;
+    }
     public static enum EnumColor implements IStringSerializable {
         RED(0, "red"),
         YELLOW(1, "yellow"),
