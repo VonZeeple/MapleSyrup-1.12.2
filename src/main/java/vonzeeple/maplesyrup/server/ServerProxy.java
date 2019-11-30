@@ -4,7 +4,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import vonzeeple.maplesyrup.client.IProxy;
+import vonzeeple.maplesyrup.IProxy;
 
 
 @Mod.EventBusSubscriber

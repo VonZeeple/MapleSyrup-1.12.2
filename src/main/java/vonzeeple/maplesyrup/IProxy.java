@@ -1,4 +1,4 @@
-package vonzeeple.maplesyrup.client;
+package vonzeeple.maplesyrup;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

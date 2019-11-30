@@ -51,8 +51,8 @@ public class Content {
     public static final ItemPancakes itemPancakes = null;
     @ObjectHolder("pancakemix")
     public static final ItemPancakeMix itemPancakeMix = null;
-    @ObjectHolder("bottle_maplesyrup")
-    public static final ItemMapleSyrupBottle itemMapleSyrupBottle = null;
+    @ObjectHolder("bottle_syrup")
+    public static final ItemSyrupBottle itemSyrupBottle = null;
     @ObjectHolder("hydrometer")
     public static final ItemHydrometer itemHydrometer = null;
 

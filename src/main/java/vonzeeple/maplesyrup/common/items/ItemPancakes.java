@@ -11,16 +11,15 @@ import vonzeeple.maplesyrup.MapleSyrup;
 
 import javax.annotation.Nonnull;
 
-public class ItemPancakes extends ItemFood {
+public class ItemPancakes extends ItemFood implements IMultiItem{
 
 
-    private String[] subNames={"pancakes","pancakes_with_syrup", "pancakes_with_bacon", "candied_bacon","maple_biscuits"};
-    private float[] satModifier={6f,7f,20f,15f,2f};
-    private int[] healAmount={5,6,8,8,2};
+    private static String[] subNames={"pancakes","pancakes_with_syrup", "pancakes_with_bacon", "candied_bacon","maple_biscuits"};
+    private static float[] satModifier={6f,7f,20f,15f,2f};
+    private static int[] healAmount={5,6,8,8,2};
 
     public ItemPancakes(){
         super(0,false);
-        setUnlocalizedName("pancakes");
         setRegistryName("maplesyrup:pancakes");
         setHasSubtypes(true);
         setCreativeTab(MapleSyrup.creativeTab);
@@ -40,7 +39,7 @@ public class ItemPancakes extends ItemFood {
         items.add(new ItemStack(this, 1, 3));
         items.add(new ItemStack(this, 1, 4));
     }
-    private int getIndex(int value){ return value%5;}
+    private int getIndex(int value){ return value%subNames.length;}
 
     @Override
     public float getSaturationModifier(ItemStack stack)

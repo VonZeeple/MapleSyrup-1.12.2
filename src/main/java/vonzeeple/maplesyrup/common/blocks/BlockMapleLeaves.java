@@ -1,12 +1,9 @@
 package vonzeeple.maplesyrup.common.blocks;
 
-import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -86,7 +83,6 @@ public class BlockMapleLeaves extends BlockLeaves implements ICustomMappedBlock 
     }
 
 
-    public int getColor(int meta){return meta%4;}
     /**
      * Convert the given metadata into a BlockState for this Block
      */

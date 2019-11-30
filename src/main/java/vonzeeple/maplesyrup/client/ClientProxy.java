@@ -2,10 +2,8 @@ package vonzeeple.maplesyrup.client;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -16,20 +14,21 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import scala.util.control.TailCalls;
+import vonzeeple.maplesyrup.IProxy;
 import vonzeeple.maplesyrup.MapleSyrup;
 import vonzeeple.maplesyrup.client.render.TESRtreetap;
 import vonzeeple.maplesyrup.client.render.TESRevaporator;
 import vonzeeple.maplesyrup.common.Content;
 import vonzeeple.maplesyrup.common.blocks.BlockMapleLeaves;
 import vonzeeple.maplesyrup.common.blocks.ICustomMappedBlock;
+import vonzeeple.maplesyrup.common.items.IMultiItem;
 import vonzeeple.maplesyrup.common.items.ItemPancakes;
 import vonzeeple.maplesyrup.common.tileEntities.TileEntityEvaporator;
 import vonzeeple.maplesyrup.common.tileEntities.TileEntityTreeTap;
 
 
 @Mod.EventBusSubscriber(Side.CLIENT)
-public class ClientProxy implements IProxy{
+public class ClientProxy implements IProxy {
 
     public void preInit(FMLPreInitializationEvent e){}
 
@@ -55,10 +54,10 @@ public class ClientProxy implements IProxy{
         registerItemLeavesRender(Content.itemBlockMapleLeaves);
 
         registerItemRender(Content.itemPancakeMix);
-        registerItemRender(Content.itemMapleSyrupBottle);
         registerItemRender(Content.itemHydrometer);
         registerItemRender(Content.itemSugarBucket);
-        registerItemFoodRender(Content.itemPancakes);
+        registerSubItemRender(Content.itemPancakes);
+        registerSubItemRender(Content.itemSyrupBottle);
 
         ClientRegistry.bindTileEntitySpecialRenderer( TileEntityEvaporator.class , new TESRevaporator());
         ClientRegistry.bindTileEntitySpecialRenderer( TileEntityTreeTap.class , new TESRtreetap());
@@ -90,9 +89,9 @@ public class ClientProxy implements IProxy{
         }
     }
 
-    private static void registerItemFoodRender(Item item) {
-        if(!(item instanceof ItemPancakes)){return;}
-        String[] names= ((ItemPancakes)item).getSubNames();
+    private static void registerSubItemRender(Item item) {
+        if(!(item instanceof IMultiItem)){return;}
+        String[] names= ((IMultiItem)item).getSubNames();
         for (int i = 0; i < names.length; i++) {
             ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(MapleSyrup.MODID+":"+names[i], "inventory"));
         }

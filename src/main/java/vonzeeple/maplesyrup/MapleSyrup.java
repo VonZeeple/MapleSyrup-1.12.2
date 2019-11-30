@@ -29,7 +29,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryBuilder;
 import org.apache.logging.log4j.Logger;
-import vonzeeple.maplesyrup.client.IProxy;
 import vonzeeple.maplesyrup.client.gui.GuiProxy;
 import vonzeeple.maplesyrup.common.Content;
 import vonzeeple.maplesyrup.common.Fluids;
@@ -92,8 +91,9 @@ public class MapleSyrup
         GameRegistry.addSmelting(new ItemStack(Content.itemPancakeMix),new ItemStack(Content.itemPancakes,1,0) ,0f);
         //Sugar from syrup
         GameRegistry.addSmelting(FluidUtil.getFilledBucket(new FluidStack(Fluids.fluidMapleSyrup, Fluid.BUCKET_VOLUME)),new ItemStack(Content.itemSugarBucket) ,0f);
+        GameRegistry.addSmelting(FluidUtil.getFilledBucket(new FluidStack(Fluids.fluidBirchSyrup, Fluid.BUCKET_VOLUME)),new ItemStack(Content.itemSugarBucket) ,0f);
         //banner pattern
-        addPattern(MapleSyrup.MODID.toLowerCase()+"_banner","vz_map",new ItemStack(Content.itemMapleSyrupBottle,1));
+        addPattern(MapleSyrup.MODID.toLowerCase()+"_banner","vz_map",new ItemStack(Content.itemSyrupBottle,1,0));
 
         ProcessesHandler.get_instance().Init();
 
@@ -112,15 +112,14 @@ public class MapleSyrup
         OreDictionary.registerOre("listAllegg",Items.EGG);
         OreDictionary.registerOre("listAllmilk",Items.MILK_BUCKET);
         //For compat with harvestcraft
-        OreDictionary.registerOre("cropMaplesyrup",Content.itemMapleSyrupBottle);
+        OreDictionary.registerOre("cropMaplesyrup",new ItemStack(Content.itemSyrupBottle, 1,0));
+        OreDictionary.registerOre("cropMaplesyrup",new ItemStack(Content.itemSyrupBottle, 1,1));
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
         registerOres();
-        MapleSyrup.logger.info(GameRegistry.findRegistry( EvaporationProcess.class).getEntries());
-        MapleSyrup.logger.info(GameRegistry.findRegistry( TappingProcess.class).getEntries());
     }
 
     @SubscribeEvent
@@ -156,7 +155,7 @@ public class MapleSyrup
     public static void registerItems(final RegistryEvent.Register<Item> event) {
         event.getRegistry().register(new ItemPancakes());
         event.getRegistry().register(new ItemPancakeMix());
-        event.getRegistry().register(new ItemMapleSyrupBottle());
+        event.getRegistry().register(new ItemSyrupBottle());
         event.getRegistry().register(new ItemHydrometer());
         event.getRegistry().register(new ItemSugarBucket());
 
@@ -196,7 +195,7 @@ public class MapleSyrup
         @Override
         public ItemStack getIconItemStack()
         {
-            return new ItemStack(Content.itemMapleSyrupBottle,1,0);
+            return new ItemStack(Content.itemSyrupBottle,1,0);
         }
     };
 
