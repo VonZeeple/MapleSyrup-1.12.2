@@ -1,0 +1,20 @@
+{
+  "pools": [
+    {
+      "name": "maple_saplings",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "maplesyrup:maple_sapling",
+          "weight": 100
+        },
+        {
+          "type": "empty",
+          "weight": 0
+        }
+      ]
+
+    }
+  ]
+}

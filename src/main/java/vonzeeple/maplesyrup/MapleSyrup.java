@@ -10,7 +10,10 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.storage.loot.*;
+import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -32,6 +35,7 @@ import org.apache.logging.log4j.Logger;
 import vonzeeple.maplesyrup.client.gui.GuiProxy;
 import vonzeeple.maplesyrup.common.Content;
 import vonzeeple.maplesyrup.common.Fluids;
+import vonzeeple.maplesyrup.common.LootTableHandler;
 import vonzeeple.maplesyrup.common.blocks.*;
 import vonzeeple.maplesyrup.common.items.*;
 import vonzeeple.maplesyrup.common.processing.EvaporationProcess;
@@ -87,6 +91,8 @@ public class MapleSyrup
     {
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiProxy());
 
+        LootTableHandler.registerLoot();
+
         //Pancakes baking:
         GameRegistry.addSmelting(new ItemStack(Content.itemPancakeMix),new ItemStack(Content.itemPancakes,1,0) ,0f);
         //Sugar from syrup
@@ -98,6 +104,8 @@ public class MapleSyrup
         ProcessesHandler.get_instance().Init();
 
     }
+
+
 
 
 
@@ -120,6 +128,7 @@ public class MapleSyrup
     public void postInit(FMLPostInitializationEvent event)
     {
         registerOres();
+
     }
 
     @SubscribeEvent
