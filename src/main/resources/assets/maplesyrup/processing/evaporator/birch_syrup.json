@@ -1,8 +1,8 @@
 {
     "inputFluid": "birch_sap_fluid",
     "outputFluid": "birch_syrup_fluid",
-    "ratio": 10,
-    "endConcentration": 37,
+    "ratio": 20,
+    "endConcentration": 66,
     "materialName": "sugar",
     "speedMultiplier": 1
 

@@ -69,9 +69,9 @@ public class BlockMapleSapling extends BlockBush implements IGrowable {
         final int prob_tree_custom = vonzeeple.maplesyrup.common.ModConfig.Maple_trees.maple_tree_custom;
         final int prob_tree_tall = vonzeeple.maplesyrup.common.ModConfig.Maple_trees.maple_tree_tall;
         final int prob_tree_small = vonzeeple.maplesyrup.common.ModConfig.Maple_trees.maple_tree_small;
-        int choice = rand.nextInt(prob_tree_custom+prob_tree_small+prob_tree_tall);
-        boolean flag = true;
-        if(choice > 0) {
+
+        if(prob_tree_custom+prob_tree_small+prob_tree_tall > 0) {
+            int choice = rand.nextInt(prob_tree_custom+prob_tree_small+prob_tree_tall);
             // remove the sapling
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 4);
             if (choice < prob_tree_custom) {

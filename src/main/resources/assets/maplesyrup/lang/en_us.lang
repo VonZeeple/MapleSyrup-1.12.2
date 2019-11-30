@@ -15,7 +15,6 @@ tile.maple_leaves.orange.name=Orange Maple Leaves
 tile.maple_leaves.green.name=Green Maple Leaves
 tile.tree_tap.name=Tree Tap
 tile.evaporator.name=Evaporator
-tile.large_evaporator.name=Evaporator
 
 #GUI
 gui.evaporator.title=Evaporator
@@ -27,10 +26,9 @@ item.candied_bacon.name=Candied Bacon
 item.pancakes_with_syrup.name=Pancakes with syrup
 item.pancakes_with_bacon.name=Pancakes with bacon
 item.maple_biscuits.name=Maple biscuits
-item.item_hydrometer.name=Hydrometer
+item.hydrometer.name=Hydrometer
 item.bottle_maplesyrup.name=Maple Syrup Bottle
 item.sugarbucket.name=Sugar in bucket
-item.hydrometer.name=Hydrometer
 
 #Banners
 item.banner.maplesyrup_banner.black=Black Maple Leaf
@@ -60,6 +58,3 @@ fluid.maple_syrup_fluid=Maple Syrup
 fluid.birch_syrup_fluid=Birch Syrup
 fluid.maple_sap_fluid=Maple Sap
 fluid.birch_sap_fluid=Birch Sap
-
-#Solutes (Dissolved materials)
-solute.sugar.name=Dissolved Sugar

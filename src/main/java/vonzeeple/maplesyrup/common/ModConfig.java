@@ -17,7 +17,7 @@ public class ModConfig {
     public static class Processes {
         @Config.Comment("Base speed for evaporator")
         @Config.RangeInt(min = 0)
-        public int evaporator_base_speed;
+        public int evaporator_base_speed =1;
     }
 
     public static final MapleTrees Maple_trees = new MapleTrees();
@@ -25,10 +25,10 @@ public class ModConfig {
     public static class MapleTrees {
         @Config.Comment("Probability to generate custom trees")
         @Config.RangeInt(min = 0, max = 100)
-        public int maple_tree_custom = 100;
+        public int maple_tree_custom = 0;
         @Config.Comment("Probability to generate vanilla style tall trees")
         @Config.RangeInt(min = 0, max = 100)
-        public int maple_tree_tall = 0;
+        public int maple_tree_tall = 100;
         @Config.Comment("Probability to generate vanilla style small trees")
         @Config.RangeInt(min = 0, max = 100)
         public int maple_tree_small = 0;

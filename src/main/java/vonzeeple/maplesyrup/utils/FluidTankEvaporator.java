@@ -5,6 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import vonzeeple.maplesyrup.common.ModConfig;
 import vonzeeple.maplesyrup.common.processing.EvaporationProcess;
 import vonzeeple.maplesyrup.common.processing.ProcessesHandler;
 
@@ -116,7 +117,7 @@ public class FluidTankEvaporator extends FluidTank {
             fluid=this.getFluid();
             return;
         }
-        drainInternal(new FluidStack(this.getFluid(), 20) ,true);
+        drainInternal(new FluidStack(this.getFluid(), ModConfig.processes.evaporator_base_speed) ,true);
     }
 
     @Override

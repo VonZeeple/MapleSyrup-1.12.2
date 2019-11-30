@@ -1,0 +1,60 @@
+language.name=Français
+language.region=France
+language.code=fr_fr
+
+#Creative
+itemGroup.maplesyrup=Sirop d'Erable
+
+#Blocks
+tile.maple_log.name= Bois d'érable à sucre
+tile.maple_sapling.name=Pousse d'érable à sucre
+tile.maple_leaves.name=Feuilles d'érable à sucre
+tile.maple_leaves.red.name=Feuilles d'érable rouges
+tile.maple_leaves.yellow.name=Feuilles d'érable jaunes
+tile.maple_leaves.orange.name=Feuilles d'érable oranges
+tile.maple_leaves.green.name=Feuilles d'érable vertes
+tile.tree_tap.name=Robinet d'arbre
+tile.evaporator.name=Evaporateur
+
+#GUI
+gui.evaporator.title=Evaporateur
+
+#Items
+item.pancakes.name=Pancakes
+item.pancakemix.name=Pâte à pancake
+item.candied_bacon.name=Bacon caramélisé
+item.pancakes_with_syrup.name=Pancakes avec sirop d'érable
+item.pancakes_with_bacon.name=Pancakes avec bacon
+item.maple_biscuits.name=Biscuits à l'érable
+item.bottle_maplesyrup.name=Bouteille de sirop d'érable
+item.sugarbucket.name=Seau de sucre
+item.hydrometer.name=Hydromètre
+
+#Banners
+item.banner.maplesyrup_banner.black=Feuille d'érable noire
+item.banner.maplesyrup_banner.red=Feuille d'érable rouge
+item.banner.maplesyrup_banner.green=Feuille d'érable verte
+item.banner.maplesyrup_banner.brown=Feuille d'érable marron
+item.banner.maplesyrup_banner.blue=Feuille d'érable bleue
+item.banner.maplesyrup_banner.purple=Feuille d'érable violette
+item.banner.maplesyrup_banner.cyan=Feuille d'érable cyan
+item.banner.maplesyrup_banner.silver=Feuille d'érable gris clair
+item.banner.maplesyrup_banner.gray=Feuille d'érable grise
+item.banner.maplesyrup_banner.pink=Feuille d'érable rose
+item.banner.maplesyrup_banner.lime=Feuille d'érable vert clair
+item.banner.maplesyrup_banner.yellow=Feuille d'érable jaune
+item.banner.maplesyrup_banner.lightBlue=Feuille d'érable bleu clair
+item.banner.maplesyrup_banner.magenta=Feuille d'érable magenta
+item.banner.maplesyrup_banner.orange=Feuille d'érable orange
+item.banner.maplesyrup_banner.white=Feuille d'érable blanche
+
+#Fluids
+tile.maple_syrup_fluid.name=Sirop d'érable
+tile.birch_syrup_fluid.name=Sirop de bouleau
+tile.maple_sap_fluid.name=Sève d'érable
+tile.maple_birch_fluid.name=Sève de bouleau
+
+fluid.maple_syrup_fluid=Sirop d'érable
+fluid.birch_syrup_fluid=Sirop de bouleau
+fluid.maple_sap_fluid=Sève d'érable
+fluid.birch_sap_fluid=Sève de bouleau

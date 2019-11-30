@@ -21,7 +21,6 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import vonzeeple.maplesyrup.common.blocks.BlockEvaporator;
 import vonzeeple.maplesyrup.utils.FluidTankEvaporator;
 import vonzeeple.maplesyrup.utils.ItemHandlerEvaporator;
-import vonzeeple.maplesyrup.utils.Logger;
 
 
 public class TileEntityEvaporator extends TileEntity implements ITickable {
