@@ -1,0 +1,17 @@
+{
+  "result":{"item": "maplesyrup:tree_tap", "count":3},
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "   ",
+    "xxx",
+    "   "
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:iron_ingot"
+    }
+  }
+}

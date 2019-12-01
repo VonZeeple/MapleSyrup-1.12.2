@@ -1,0 +1,25 @@
+{
+  "result":{"item": "maplesyrup:evaporator"},
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "   ",
+    " x ",
+    "bab"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:cauldron"
+    },
+    "a":{
+      "type": "forge:ore_dict",
+      "ore": "logWood"
+    },
+    "b":{
+      "type": "forge:ore_dict",
+      "ore": "cobblestone"
+    }
+  }
+}
