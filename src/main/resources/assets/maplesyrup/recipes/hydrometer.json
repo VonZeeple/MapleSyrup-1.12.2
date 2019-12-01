@@ -1,0 +1,21 @@
+{
+  "result":{"item": "maplesyrup:hydrometer"},
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "  x",
+    " x ",
+    "a  "
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:glass"
+    },
+    "a":
+    {
+      "item": "minecraft:iron_ingot"
+    }
+  }
+}
