@@ -12,8 +12,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import vonzeeple.maplesyrup.MapleSyrup;
 import vonzeeple.maplesyrup.common.Content;
-
-import vonzeeple.maplesyrup.common.ModConfig;
 import vonzeeple.maplesyrup.common.worldgen.WorldGenMapleTree;
 import vonzeeple.maplesyrup.common.worldgen.WorldGenMapleTreeClassic;
 import vonzeeple.maplesyrup.common.worldgen.WorldGenMapleTreeSmall;

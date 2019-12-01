@@ -26,7 +26,7 @@ import vonzeeple.maplesyrup.utils.ItemHandlerEvaporator;
 public class TileEntityEvaporator extends TileEntity implements ITickable {
 
     public static final int SIZE = 1;//number of slots
-    private FluidTankEvaporator tank = new FluidTankEvaporator(Fluid.BUCKET_VOLUME*10);
+    private FluidTankEvaporator tank = new FluidTankEvaporator(Fluid.BUCKET_VOLUME*20);
     public int burningTimeLeft = 0;
     public int burningTime = 0;
 

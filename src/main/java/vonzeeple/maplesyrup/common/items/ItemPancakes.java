@@ -1,15 +1,10 @@
 package vonzeeple.maplesyrup.common.items;
 
-import com.sun.istack.internal.NotNull;
-import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import vonzeeple.maplesyrup.MapleSyrup;
-
-import javax.annotation.Nonnull;
 
 public class ItemPancakes extends ItemFood implements IMultiItem{
 
