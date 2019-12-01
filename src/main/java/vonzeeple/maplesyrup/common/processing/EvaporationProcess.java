@@ -11,12 +11,12 @@ public class EvaporationProcess implements IProcess<EvaporationProcess> {
     Fluid inputFluid;
     Fluid outputFluid;
     float ratio;
-    int endConcentration;
+    float endConcentration;
     String materialName;
 
     ResourceLocation resourceLocation;
 
-    public EvaporationProcess(Fluid inputFluid, Fluid outputFluid, float ratio, String materialName, int endConcentration){
+    public EvaporationProcess(Fluid inputFluid, Fluid outputFluid, float ratio, String materialName, float endConcentration){
             this.inputFluid=inputFluid;
             this.outputFluid=outputFluid;
             this.ratio=ratio;
@@ -25,7 +25,9 @@ public class EvaporationProcess implements IProcess<EvaporationProcess> {
     }
     public float getRatio(){return this.ratio;}
     public Fluid getConcentratedFluid(){return this.outputFluid;}
-    public float getBaseConcentration(){return this.endConcentration;}
+    public float getBaseConcentration(){
+        return (this.endConcentration)*1f/this.ratio;
+    }
     public String getMaterialName(){return this.materialName;}
 
     public Fluid getFluid(){return this.inputFluid;}

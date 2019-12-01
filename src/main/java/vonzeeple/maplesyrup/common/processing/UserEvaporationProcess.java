@@ -16,7 +16,7 @@ public class UserEvaporationProcess implements IUserProcess {
     private String inputFluid;
     private String outputFluid;
     private float ratio;
-    private int endConcentration;
+    private float endConcentration;
     private String materialName;
 
     public UserEvaporationProcess(){

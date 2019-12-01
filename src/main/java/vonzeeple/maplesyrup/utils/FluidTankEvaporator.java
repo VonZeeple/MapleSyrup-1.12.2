@@ -1,6 +1,5 @@
 package vonzeeple.maplesyrup.utils;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -50,8 +49,8 @@ public class FluidTankEvaporator extends FluidTank {
 
 
     public String getConcentration(){
-        if(this.fluid==null){return "None";}
-        return String.valueOf((int)(materialContent/this.getFluidAmount()*100))+"% "+I18n.format("solute."+materialName+".name");
+        if(this.fluid==null){return "Empty";}
+        return String.valueOf((this.materialContent/this.getFluidAmount()*100))+"% "+materialName;
 
     }
     @Override
@@ -74,7 +73,7 @@ public class FluidTankEvaporator extends FluidTank {
                 if(doFill){
                     drainInternal(new FluidStack(fs,oldAmount),true);
                     fillInternal(new FluidStack(resource,oldAmount),true);
-                    this.materialContent +=(float)amount/1000f*process.getBaseConcentration();
+                    this.materialContent +=(float)amount*process.getBaseConcentration();
                     this.materialName=process.getMaterialName();
                     return fillInternal(resource, true);}else{
 
@@ -83,9 +82,11 @@ public class FluidTankEvaporator extends FluidTank {
             }}
 
         //otherwise
-        if(doFill)
-            this.materialContent +=(float)fill(resource, false)/1000f*process.getBaseConcentration();
-            this.materialName=process.getMaterialName();
+        if(doFill) {
+            float matAmount = (float) fill(resource, false) * process.getBaseConcentration();
+            this.materialContent += matAmount;
+            this.materialName = process.getMaterialName();
+        }
         return fillInternal(resource, doFill);
     }
 
@@ -108,7 +109,7 @@ public class FluidTankEvaporator extends FluidTank {
 
         //Test if the content can be transformed in the concentrated version
         EvaporationProcess process=ProcessesHandler.find_evaporation_recipe(fluid.getFluid());
-        if(materialContent >=process.getRatio()*process.getBaseConcentration()*(float)this.getFluidAmount()/1000f){
+        if(materialContent >=process.getRatio()*process.getBaseConcentration()*(float)this.getFluidAmount()){
             int fluidamount=getFluidAmount();
             String conFluidname=ProcessesHandler.find_evaporation_recipe(fluid.getFluid()).getConcentratedFluid().getName();
             FluidStack conFluid= FluidRegistry.getFluidStack(conFluidname, fluidamount);
