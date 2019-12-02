@@ -4,6 +4,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import vonzeeple.maplesyrup.MapleSyrup;
 import vonzeeple.maplesyrup.common.ModConfig;
 import vonzeeple.maplesyrup.common.processing.EvaporationProcess;
 import vonzeeple.maplesyrup.common.processing.ProcessesHandler;
@@ -104,21 +105,25 @@ public class FluidTankEvaporator extends FluidTank {
         FluidStack fluid=this.getFluid();
         if(fluid==null)
             return;
-        if(ProcessesHandler.find_evaporation_recipe(fluid.getFluid()) == null)
+        EvaporationProcess process = ProcessesHandler.find_evaporation_recipe(fluid.getFluid());
+        if( process == null)
             return;
 
-        //Test if the content can be transformed in the concentrated version
-        EvaporationProcess process=ProcessesHandler.find_evaporation_recipe(fluid.getFluid());
-        if(materialContent >=process.getRatio()*process.getBaseConcentration()*(float)this.getFluidAmount()){
-            int fluidamount=getFluidAmount();
-            String conFluidname=ProcessesHandler.find_evaporation_recipe(fluid.getFluid()).getConcentratedFluid().getName();
-            FluidStack conFluid= FluidRegistry.getFluidStack(conFluidname, fluidamount);
-            drainInternal(new FluidStack(fluid, fluidamount) ,true);
+        FluidStack fluidStack = drainInternal(new FluidStack(this.getFluid(), ModConfig.processes.evaporator_base_speed) ,false);
+        if(fluidStack == null){return;}
+
+        //Test if concentration is high enough to switch fluids
+        if(materialContent >= process.getEndConcentration()*((float)this.getFluidAmount()-fluidStack.amount)){
+            //We first empty the tank
+            drainInternal(this.getFluidAmount(),true);
+            //We add the right amount of concentrated fluid
+            int conAmount = Math.round(materialContent/process.getEndConcentration());
+            FluidStack conFluid = new FluidStack(process.getConcentratedFluid(), conAmount);
             fillInternal(conFluid,true);
-            fluid=this.getFluid();
             return;
         }
-        drainInternal(new FluidStack(this.getFluid(), ModConfig.processes.evaporator_base_speed) ,true);
+
+        drainInternal(new FluidStack(this.getFluid(), fluidStack.amount) ,true);
     }
 
     @Override

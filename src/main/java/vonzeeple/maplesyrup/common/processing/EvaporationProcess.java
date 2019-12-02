@@ -8,11 +8,11 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import javax.annotation.Nullable;
 
 public class EvaporationProcess implements IProcess<EvaporationProcess> {
-    Fluid inputFluid;
-    Fluid outputFluid;
-    float ratio;
-    float endConcentration;
-    String materialName;
+    private Fluid inputFluid;
+    private Fluid outputFluid;
+    private float ratio;
+    private float endConcentration;
+    private String materialName;
 
     ResourceLocation resourceLocation;
 
@@ -23,6 +23,7 @@ public class EvaporationProcess implements IProcess<EvaporationProcess> {
             this.materialName=materialName;
             this.endConcentration=endConcentration;
     }
+    public float getEndConcentration(){return this.endConcentration;}
     public float getRatio(){return this.ratio;}
     public Fluid getConcentratedFluid(){return this.outputFluid;}
     public float getBaseConcentration(){
