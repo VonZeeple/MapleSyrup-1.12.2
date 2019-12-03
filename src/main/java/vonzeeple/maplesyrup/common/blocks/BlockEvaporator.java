@@ -2,6 +2,7 @@ package vonzeeple.maplesyrup.common.blocks;
 
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
@@ -37,10 +38,12 @@ public class BlockEvaporator extends Block {
 
 
     public BlockEvaporator(){
-        super(Material.IRON);
+        super(new Material(MapColor.IRON));
         setUnlocalizedName("evaporator");
         setRegistryName("maplesyrup:evaporator");
         setCreativeTab(MapleSyrup.creativeTab);
+        setHardness(0.5f);
+        //setHarvestLevel();
         this.setDefaultState(this.blockState.getBaseState().withProperty(active, false));
     }
 
@@ -89,9 +92,6 @@ public class BlockEvaporator extends Block {
 
         if (FluidUtil.interactWithFluidHandler( player,  hand, world,  pos,  side)) {
             world.getTileEntity(pos).markDirty();
-            if(((TileEntityEvaporator) world.getTileEntity(pos)).getFluidStack() != null){
-                Logger.info("Sap level(2): " + ((TileEntityEvaporator) world.getTileEntity(pos)).getFluidStack().getLocalizedName() + " " + ((TileEntityEvaporator) world.getTileEntity(pos)).getLevelRatio() + "mB");
-            }
             IBlockState oldState = world.getBlockState(pos);
             world.notifyBlockUpdate(pos,oldState,state,3);
             return true;

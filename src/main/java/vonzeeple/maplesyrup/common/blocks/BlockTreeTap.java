@@ -1,6 +1,7 @@
 package vonzeeple.maplesyrup.common.blocks;
 
 import net.minecraft.block.*;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -50,12 +51,13 @@ public class BlockTreeTap extends Block {
 
 
     public BlockTreeTap() {
-        super(Material.WOOD);
+        super(new Material(MapColor.IRON));
         this.setCreativeTab(MapleSyrup.creativeTab);
         setUnlocalizedName("tree_tap");
         setRegistryName("maplesyrup:tree_tap");
         this.setDefaultState(this.getDefaultState().withProperty(ISFULL,false).withProperty(BUCKET,false));
         this.setTickRandomly(true);
+        setHardness(0.2f);
 
     }
 
