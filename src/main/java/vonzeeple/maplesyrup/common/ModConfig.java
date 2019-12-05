@@ -17,7 +17,7 @@ public class ModConfig {
     public static class Processes {
         @Config.Comment("Base speed for evaporator")
         @Config.RangeInt(min = 0)
-        public int evaporator_base_speed =1;
+        public int evaporator_base_speed =5;
         @Config.Comment("Add defaults recipies if JSON files are missing")
         public boolean reset_default_recipies = true;
     }
