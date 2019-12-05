@@ -1,5 +1,0 @@
-{
-  "block": "minecraft:toto{axis = y}",
-  "fluid":"maple_fluid",
-  "amount": 200
-}

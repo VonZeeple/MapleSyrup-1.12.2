@@ -18,6 +18,8 @@ public class ModConfig {
         @Config.Comment("Base speed for evaporator")
         @Config.RangeInt(min = 0)
         public int evaporator_base_speed =1;
+        @Config.Comment("Add defaults recipies if JSON files are missing")
+        public boolean reset_default_recipies = true;
     }
 
     public static final MapleTrees Maple_trees = new MapleTrees();

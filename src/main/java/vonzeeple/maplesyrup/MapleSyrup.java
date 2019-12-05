@@ -36,11 +36,10 @@ import vonzeeple.maplesyrup.client.gui.GuiProxy;
 import vonzeeple.maplesyrup.common.Content;
 import vonzeeple.maplesyrup.common.Fluids;
 import vonzeeple.maplesyrup.common.LootTableHandler;
+import vonzeeple.maplesyrup.common.ModConfig;
 import vonzeeple.maplesyrup.common.blocks.*;
 import vonzeeple.maplesyrup.common.items.*;
-import vonzeeple.maplesyrup.common.processing.EvaporationProcess;
-import vonzeeple.maplesyrup.common.processing.ProcessesHandler;
-import vonzeeple.maplesyrup.common.processing.TappingProcess;
+import vonzeeple.maplesyrup.common.processing.*;
 import vonzeeple.maplesyrup.common.tileEntities.TileEntityEvaporator;
 import vonzeeple.maplesyrup.common.tileEntities.TileEntityTreeTap;
 
@@ -82,7 +81,8 @@ public class MapleSyrup
         FluidRegistry.registerFluid(Fluids.fluidBirchSyrup);
         FluidRegistry.addBucketForFluid(Fluids.fluidBirchSyrup);
 
-        ProcessesHandler.get_instance().PreInit();
+        ProcessesHandler.get_instance().PreInit(event);
+
 
     }
 

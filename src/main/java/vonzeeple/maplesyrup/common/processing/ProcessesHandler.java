@@ -7,16 +7,25 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
+import vonzeeple.maplesyrup.MapleSyrup;
+import vonzeeple.maplesyrup.common.ModConfig;
 
 import javax.annotation.Nullable;
+import java.io.File;
 import java.util.Map;
 
 
 public class ProcessesHandler {
 
     private static ProcessesHandler instance;
+
+    private static ProcessLoader evapProcessLoader;
+    private static ProcessLoader tappingProcessLoader;
 
     private ProcessesHandler(){
     }
@@ -49,33 +58,18 @@ public class ProcessesHandler {
         return instance;
     }
 
-    public void PreInit(){
-
-    }
-
-
-    public static <T> T cast(@Nullable Object o)
-    {
-        return o == null ? null : (T) o;
-    }
-
-    private IBlockState Find_BlockState(String domain, String block_id, String property_name, String value_name){
-        Block block = Block.REGISTRY.getObject(new ResourceLocation(domain+":"+block_id));
-        if(block == Blocks.AIR){return null;}
-        IProperty<?> property = block.getBlockState().getProperty(property_name);
-        if(property == null){return null;}
-        Optional<?> value = property.parseValue(value_name);
-
-        if(value.isPresent()){
-            return block.getDefaultState().withProperty(property, cast(value.get()));
+    public void PreInit(FMLPreInitializationEvent event){
+        evapProcessLoader= new ProcessLoader(new File(event.getModConfigurationDirectory(), "maplesyrup/processing/evaporator"),UserEvaporationProcess.class);
+        tappingProcessLoader= new ProcessLoader( new File(event.getModConfigurationDirectory(), "maplesyrup/processing/tree_tapping"),UserTreeTapingProcess.class);
+        if(ModConfig.processes.reset_default_recipies) {
+            evapProcessLoader.add_default_recipes("/processing/evaporator/");
+            tappingProcessLoader.add_default_recipes("/processing/tree_tapping/");
         }
-        return null;
     }
+
 
     public void Init(){
-        ProcessLoader evapProcessLoader = new ProcessLoader("/processing/evaporator",UserEvaporationProcess.class);
         evapProcessLoader.registerProcesses();
-        ProcessLoader tappingProcessLoader = new ProcessLoader("/processing/tree_tapping",UserTreeTapingProcess.class);
         tappingProcessLoader.registerProcesses();
     }
 

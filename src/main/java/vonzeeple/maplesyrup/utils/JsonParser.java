@@ -1,32 +1,38 @@
 package vonzeeple.maplesyrup.utils;
 
 import com.google.gson.*;
+import com.google.gson.stream.JsonWriter;
 import net.minecraftforge.common.config.Configuration;
-import vonzeeple.maplesyrup.MapleSyrup;
-
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-import static net.minecraftforge.common.config.Configuration.DEFAULT_ENCODING;
 
 public class JsonParser {
 
-    static public JsonElement load_JSON(File file){
+    static public void write_JSON(JsonElement element, Path path, String filename){
+        Gson gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
+        try{
+            JsonWriter writer = new JsonWriter(new FileWriter(path.resolve(filename).toFile()));
+            gson.toJson(element, writer);
+            writer.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    static public JsonElement load_JSON(Path file){
         BufferedReader buffer = null;
         Configuration.UnicodeInputStreamReader input = null;
 
         try {
-            if (file.canRead()) {
-                input = new Configuration.UnicodeInputStreamReader(new FileInputStream(file), DEFAULT_ENCODING);
-                buffer = new BufferedReader(input);
+                buffer = Files.newBufferedReader(file);
                 try {
                     return new Gson().fromJson(buffer, JsonElement.class);
                 }catch(JsonSyntaxException e){
                 return null;}
-            } else { return null;
-            }
         } catch (IOException e) {
         return null;
         } finally {
