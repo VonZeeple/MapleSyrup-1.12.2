@@ -10,8 +10,8 @@ public class ItemPancakes extends ItemFood implements IMultiItem{
 
 
     private static String[] subNames={"pancakes","pancakes_with_syrup", "pancakes_with_bacon", "candied_bacon","maple_biscuits"};
-    private static float[] satModifier={6f,7f,20f,15f,2f};
-    private static int[] healAmount={5,6,8,8,2};
+    private static float[] satModifier={0.5f,0.5f,1f,1f,0.5f};
+    private static int[] healAmount={6,7,10,9,2};
 
     public ItemPancakes(){
         super(0,false);
