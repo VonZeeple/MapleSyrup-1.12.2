@@ -166,6 +166,7 @@ public class BlockMapleLeaves extends BlockLeaves implements ICustomMappedBlock 
     }
 
     // use a custom state mapper which will ignore the DECAY property of leaves
+    @SideOnly(Side.CLIENT)
     public StateMapperBase getCustomStateMapper(){
         return new StateMapperBase()
         {

@@ -6,6 +6,8 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vonzeeple.maplesyrup.MapleSyrup;
 
 public class BlockFluid extends BlockFluidClassic implements ICustomMappedBlock{
@@ -22,7 +24,7 @@ public class BlockFluid extends BlockFluidClassic implements ICustomMappedBlock{
     }
 
 
-
+    @SideOnly(Side.CLIENT)
     public StateMapperBase getCustomStateMapper(){
         String name= this.name;
         return new StateMapperBase()

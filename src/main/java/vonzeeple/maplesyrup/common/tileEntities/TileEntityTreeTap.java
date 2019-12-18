@@ -20,6 +20,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import vonzeeple.maplesyrup.client.particles.ParticleSap;
 import vonzeeple.maplesyrup.common.blocks.BlockTreeTap;
@@ -42,6 +44,7 @@ public class TileEntityTreeTap extends TileEntity {
         }
     };
 
+    @SideOnly(Side.CLIENT)
     public void displayUpdate(World world, IBlockState stateIn, BlockPos pos, Random rand){
         if(!world.isRemote){return;}
         if (rand.nextDouble() < 0.1D) {
@@ -51,6 +54,7 @@ public class TileEntityTreeTap extends TileEntity {
             }
         }
     }
+
 
     public void update(){
         FluidStack fluidstack=this.checkTapping();
@@ -112,6 +116,7 @@ public class TileEntityTreeTap extends TileEntity {
 
     }
 
+    @SideOnly(Side.CLIENT)
     private void spawnParticles(World worldIn, BlockPos pos, IBlockState state,FluidStack fluidstack)
     {
         if(!world.isRemote){return;}
