@@ -3,6 +3,9 @@
 /.idea
 /build
 /out
+/run
+
+gradlew
 
 mapleSyrup-1.12.2.iml
 mapleSyrup-1.12.2.ipr

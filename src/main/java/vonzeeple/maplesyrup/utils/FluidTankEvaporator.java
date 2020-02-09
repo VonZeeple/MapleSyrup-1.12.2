@@ -51,7 +51,7 @@ public class FluidTankEvaporator extends FluidTank {
 
     public String getConcentration(){
         if(this.fluid==null){return "Empty";}
-        return String.valueOf((this.materialContent/this.getFluidAmount()*100))+"% "+materialName;
+        return String.format("%.0f",(this.materialContent/this.getFluidAmount()*100))+"% "+materialName;
 
     }
     @Override
