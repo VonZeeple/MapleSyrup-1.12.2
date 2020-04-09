@@ -1,8 +1,13 @@
 package vonzeeple.maplesyrup.common.blocks;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -21,7 +26,7 @@ import java.util.Random;
 public class BlockMapleSapling extends BlockBush implements IGrowable {
 
     protected static final AxisAlignedBB SAPLING_AABB = new AxisAlignedBB(0.09999999403953552D, 0.0D, 0.09999999403953552D, 0.8999999761581421D, 0.800000011920929D, 0.8999999761581421D);
-    private int ModConfig;
+    public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
 
     public BlockMapleSapling(){
         super();
@@ -29,6 +34,7 @@ public class BlockMapleSapling extends BlockBush implements IGrowable {
         setUnlocalizedName("maple_sapling");
         setRegistryName("maplesyrup:maple_sapling");
         setSoundType(SoundType.PLANT);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE, 0));
 
     }
 
@@ -48,9 +54,52 @@ public class BlockMapleSapling extends BlockBush implements IGrowable {
         return (double)worldIn.rand.nextFloat() < 0.45D;
     }
 
+
+    /**
+     * Metadata stuff
+     */
+
+    public IBlockState getStateFromMeta(int meta)
+    {
+        return this.getDefaultState().withProperty(STAGE, (meta & 8) >> 3);
+    }
+
+    public int getMetaFromState(IBlockState state)
+    {
+        int i = 0;
+        i = i | (Integer) state.getValue(STAGE) << 3;
+        return i;
+    }
+
+    protected BlockStateContainer createBlockState()
+    {
+        return new BlockStateContainer(this, STAGE);
+    }
+
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    {
+        if (!worldIn.isRemote)
+        {
+            super.updateTick(worldIn, pos, state, rand);
+
+            if (!worldIn.isAreaLoaded(pos, 1)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light
+            if (worldIn.getLightFromNeighbors(pos.up()) >= 9 && rand.nextInt(7) == 0)
+            {
+                this.grow(worldIn, rand, pos, state);
+            }
+        }
+    }
+
     @Override
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-        generateTree(worldIn, pos, state, rand);
+        if ((Integer) state.getValue(STAGE) == 0)
+        {
+            worldIn.setBlockState(pos, state.cycleProperty(STAGE), 4);
+        }
+        else
+        {
+            this.generateTree(worldIn, pos, state, rand);
+        }
     }
 
 

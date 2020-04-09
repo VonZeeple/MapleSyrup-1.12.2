@@ -30,8 +30,9 @@ public class FluidTankEvaporator extends FluidTank {
     @Override
     public FluidStack drain(int maxDrain, boolean doDrain){
         int amount=0;
-        if(super.drain(maxDrain, false)!=null)
-            amount=super.drain(maxDrain, false).amount;
+        FluidStack drained = super.drain(maxDrain, false);
+        if(drained!=null)
+            amount=drained.amount;
 
         if(doDrain){
             materialContent *=(1f-(float)amount/(float)getFluidAmount());
@@ -41,7 +42,10 @@ public class FluidTankEvaporator extends FluidTank {
 
     @Override
     public FluidStack drain(FluidStack resource, boolean doDrain){
-        int amount=super.drain(resource, false).amount;
+        int amount = 0;
+        FluidStack drained = super.drain(resource, false);
+        if(drained!=null)
+            amount=drained.amount;
         if(doDrain){
             materialContent *=(1f-(float)amount/(float)getFluidAmount());
         }

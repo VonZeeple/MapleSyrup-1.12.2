@@ -49,7 +49,7 @@ public class MapleSyrup
 {
     public static final String MODID = "maplesyrup";
     public static final String NAME = "Maple Syrup";
-    public static final String VERSION = "1.12.2-0.1.4-beta";
+    public static final String VERSION = "1.12.2-0.1.5-beta";
 
     public static Logger logger;
 
