@@ -6,56 +6,56 @@ language.code=zh_cn
 itemGroup.maplesyrup=枫糖
 
 #Blocks
-tile.maple_log.name=Sugar Maple Log
-tile.maple_sapling.name=Sugar Maple Sapling
-tile.maple_leaves.name=Sugar Maple Leaves
-tile.maple_leaves.red.name=Red Maple Leaves
-tile.maple_leaves.yellow.name=Yellow Maple Leaves
-tile.maple_leaves.orange.name=Orange Maple Leaves
-tile.maple_leaves.green.name=Green Maple Leaves
-tile.tree_tap.name=Tree Tap
-tile.evaporator.name=Evaporator
+tile.maple_log.name=糖枫原木
+tile.maple_sapling.name=糖枫树苗
+tile.maple_leaves.name=糖枫树叶
+tile.maple_leaves.red.name=红枫树叶
+tile.maple_leaves.yellow.name=黄枫树叶
+tile.maple_leaves.orange.name=橙枫树叶
+tile.maple_leaves.green.name=绿枫树叶
+tile.tree_tap.name=树木龙头
+tile.evaporator.name=蒸发锅
 
 #GUI
-gui.evaporator.title=Evaporator
+gui.evaporator.title=蒸发锅
 
 #Items
-item.pancakes.name=Pancakes
-item.pancakemix.name=Pancake Mix
-item.candied_bacon.name=Candied Bacon
-item.pancakes_with_syrup.name=Pancakes with syrup
-item.pancakes_with_bacon.name=Pancakes with bacon
-item.maple_biscuits.name=Maple biscuits
-item.hydrometer.name=Hydrometer
-item.bottle_maplesyrup.name=Maple Syrup Bottle
-item.bottle_birchsyrup.name=Birch Syrup Bottle
-item.sugarbucket.name=Sugar in bucket
+item.pancakes.name=薄饼
+item.pancakemix.name=薄饼糊
+item.candied_bacon.name=加糖培根
+item.pancakes_with_syrup.name=枫糖博饼
+item.pancakes_with_bacon.name=培根博饼
+item.maple_biscuits.name=枫饼干
+item.hydrometer.name=比重计
+item.bottle_maplesyrup.name=枫糖瓶
+item.bottle_birchsyrup.name=桦糖瓶
+item.sugarbucket.name=糖桶
 
 #Banners
-item.banner.maplesyrup_banner.black=Black Maple Leaf
-item.banner.maplesyrup_banner.red=Red Maple Leaf
-item.banner.maplesyrup_banner.green=Green Maple Leaf
-item.banner.maplesyrup_banner.brown=Brown Maple Leaf
-item.banner.maplesyrup_banner.blue=Blue Maple Leaf
-item.banner.maplesyrup_banner.purple=Purple Maple Leaf
-item.banner.maplesyrup_banner.cyan=Cyan Maple Leaf
-item.banner.maplesyrup_banner.silver=Silver Maple Leaf
-item.banner.maplesyrup_banner.gray=Gray Maple Leaf
-item.banner.maplesyrup_banner.pink=Pink Maple Leaf
-item.banner.maplesyrup_banner.lime=Lime Maple Leaf
-item.banner.maplesyrup_banner.yellow=Yellow Maple Leaf
-item.banner.maplesyrup_banner.lightBlue=LightBlue Maple Leaf
-item.banner.maplesyrup_banner.magenta=Magenta Maple Leaf
-item.banner.maplesyrup_banner.orange=Orange Maple Leaf
-item.banner.maplesyrup_banner.white=White Maple Leaf
+item.banner.maplesyrup_banner.black=黑色枫叶
+item.banner.maplesyrup_banner.red=红色枫叶
+item.banner.maplesyrup_banner.green=绿色枫叶
+item.banner.maplesyrup_banner.brown=棕色枫叶
+item.banner.maplesyrup_banner.blue=蓝色枫叶
+item.banner.maplesyrup_banner.purple=紫色枫叶
+item.banner.maplesyrup_banner.cyan=青色枫叶
+item.banner.maplesyrup_banner.silver=银色枫叶
+item.banner.maplesyrup_banner.gray=灰色枫叶
+item.banner.maplesyrup_banner.pink=粉红色枫叶
+item.banner.maplesyrup_banner.lime=黄绿色枫叶
+item.banner.maplesyrup_banner.yellow=黄色枫叶
+item.banner.maplesyrup_banner.lightBlue=淡蓝色枫叶
+item.banner.maplesyrup_banner.magenta=品红色枫叶
+item.banner.maplesyrup_banner.orange=橙色枫叶
+item.banner.maplesyrup_banner.white=白色枫叶
 
 #Fluids
-tile.maple_syrup_fluid.name=Maple Syrup
-tile.birch_syrup_fluid.name=Birch Syrup
-tile.maple_sap_fluid.name=Maple Sap
-tile.maple_birch_fluid.name=Birch Sap
+tile.maple_syrup_fluid.name=枫糖
+tile.birch_syrup_fluid.name=桦糖
+tile.maple_sap_fluid.name=枫液
+tile.maple_birch_fluid.name=桦液
 
-fluid.maple_syrup_fluid=Maple Syrup
-fluid.birch_syrup_fluid=Birch Syrup
-fluid.maple_sap_fluid=Maple Sap
-fluid.birch_sap_fluid=Birch Sap
+fluid.maple_syrup_fluid=枫糖
+fluid.birch_syrup_fluid=桦糖
+fluid.maple_sap_fluid=枫液
+fluid.birch_sap_fluid=桦液
